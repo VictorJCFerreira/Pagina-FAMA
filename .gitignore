@@ -1,0 +1,4 @@
+Fama/node_modules/
+.env
+Fama/build/
+*.log
