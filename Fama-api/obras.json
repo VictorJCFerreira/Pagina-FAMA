@@ -1,45 +1,37 @@
 {
-  "obra1": 
-    {
-      "nomeObra": "Shopping Funico",
-      "responsavel": "João Teste",
-      "local" : "Piedade, Rua Algusta de Freitas ,262",
-      "datas" : {
-        "dataDeInicio" : {
-          "dia" : 27,
-          "mes" : 7,
-          "ano" : 2023
-        },
-        "prazoDeEntrega" : {
-          "dia" : 11,
-          "mes" : 10,
-          "ano" : 2025
-        },
-      "diasDecorridos" : "",
-      "diasAtrasados" : ""
-     },
-
-      "Orçamento" : {
-        "credito": "",
-        "situaçaoDeLucro" : "",
-        
-        "gastosEfetuados" : {
-          "tipoDeGasto" : "" ,
-          "descricao" : "" , 
-          "valor" : "" , 
-          "situacao" : ""
-        },
-        "gastosPendentes" : {
-          "tipoDeGasto" : "" ,
-          "descricao" : "" , 
-          "valor" : ""
-        },
-        
-        "projeçaoDeGastos" : ""
-
-      }
-
+  "obra1": {
+    "nomeObra": "Shopping Funico",
+    "responsavel": "João Teste",
+    "local": "Piedade, Rua Algusta de Freitas ,262",
+    "datas": {
+      "dataDeInicio": {
+        "dia": 27,
+        "mes": 7,
+        "ano": 2023
+      },
+      "prazoDeEntrega": {
+        "dia": 11,
+        "mes": 10,
+        "ano": 2025
+      },
+      "diasDecorridos": 31,
+      "diasAtrasados": ""
+    },
+    "Orçamento": {
+      "credito": "",
+      "situaçaoDeLucro": "",
+      "gastosEfetuados": {
+        "tipoDeGasto": "",
+        "descricao": "",
+        "valor": "",
+        "situacao": ""
+      },
+      "gastosPendentes": {
+        "tipoDeGasto": "",
+        "descricao": "",
+        "valor": ""
+      },
+      "projeçaoDeGastos": ""
     }
-      
+  }
 }
-  
