@@ -1,4 +1,4 @@
-Fama/node_modules/
+Fama-front/node_modules/
 .env
-Fama/build/
+Fama-fronnt/build/
 *.log
