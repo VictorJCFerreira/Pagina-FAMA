@@ -1,0 +1,29 @@
+{
+    "listaPrincipal": [
+      {
+        "titulo": "Lista 1",
+        "itens": [
+          "Item 1",
+          "Item 2",
+          "Item 3"
+        ]
+      },
+      {
+        "titulo": "Lista 2",
+        "itens": [
+          "Item A",
+          "Item B",
+          "Item C"
+        ]
+      },
+      {
+        "titulo": "Lista 3",
+        "itens": [
+          "Item X",
+          "Item Y",
+          "Item Z"
+        ]
+      }
+    ]
+  }
+  
