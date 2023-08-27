@@ -9,13 +9,13 @@
         "mes": 7,
         "ano": 2023
       },
-      "prazoDeEntrega": {
-        "dia": 11,
-        "mes": 10,
-        "ano": 2025
+      "dataDeEntrega": {
+        "dia": 25,
+        "mes": 8,
+        "ano": 2023
       },
       "diasDecorridos": 31,
-      "diasAtrasados": ""
+      "diasAtrasados": 2
     },
     "Orçamento": {
       "credito": "",

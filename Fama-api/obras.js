@@ -6,6 +6,8 @@ const { json } = require('stream/consumers');
 
 const caminhoArquivo = './obras.json';
 fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+  
+  //dias decorridos
   if (err) {
     console.error('Erro:', err);
     return;
@@ -19,9 +21,10 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
   const mesDeInicio = dataDeInicio.mes;
   const anoDeInicio = dataDeInicio.ano;
   
-  const dataInicioProjeto = new Date(anoDeInicio, mesDeInicio - 1 , diaDeInicio ); /* o -1 ocorre pois mes inicial é 0 para a biblioteca */
+  //data formatada para funcionar nas funções date fns ->
+  const dataDeInicioForm = new Date(anoDeInicio, mesDeInicio - 1 , diaDeInicio ); /* o -1 ocorre pois mes inicial é 0 para a biblioteca */ 
 
-  const diferencaDias = differenceInDays(dataAtual, dataInicioProjeto);
+  const diferencaDias = differenceInDays(dataAtual, dataDeInicioForm);
 
   jsonObject.obra1.datas.diasDecorridos = diferencaDias;
 
@@ -29,4 +32,21 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
   fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   console.log('Valor de diasDecorridos atualizado.');
+
+  //se atraso -> dias de atraso
+  const dataDeEntrega = jsonObject.obra1.datas.dataDeEntrega;
+  const diaDeEntrega = dataDeEntrega.dia;
+  const mesDeEntrega = dataDeEntrega.mes;
+  const anoDeEntrega = dataDeEntrega.ano;
+
+  const dataDeEntregaForm = new Date(anoDeEntrega, mesDeEntrega - 1 , diaDeEntrega ) //data formatada para funcionar nas funções date fns
+
+  const diferencaDiasAtraso = differenceInDays(dataAtual, dataDeEntregaForm)
+  if (diferencaDiasAtraso > 0) {
+    jsonObject.obra1.datas.diasAtrasados = diferencaDiasAtraso;
+    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8')
+  }
+
+  
+
 });
