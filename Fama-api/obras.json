@@ -17,21 +17,39 @@
       "diasDecorridos": 31,
       "diasAtrasados": 2
     },
-    "Orçamento": {
-      "credito": "",
-      "situaçaoDeLucro": "",
-      "gastosEfetuados": {
-        "tipoDeGasto": "",
-        "descricao": "",
-        "valor": "",
-        "situacao": ""
-      },
-      "gastosPendentes": {
-        "tipoDeGasto": "",
-        "descricao": "",
-        "valor": ""
-      },
-      "projeçaoDeGastos": ""
+    "orçamento": {
+      "valorPagoObra": 100,
+      "gastosEfetuados": [
+        {
+          "tipoDeGasto": "Pedreiro",
+          "descricao": "Mestre de obras",
+          "valor": 20,
+          "situacao": "Confirmado"
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "Tijolo 1",
+          "valor": 5,
+          "situacao": "Entregue"
+        }
+      ],
+      "somaGastosEfetuados": 25,
+      "gastosPendentes": [
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "Tijolo 2",
+          "valor": 5
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "Tijolo 3",
+          "valor": 12
+        }
+      ],
+      "somaGastosPendentes": 17,
+      "credito": 75,
+      "projecaoDeGastos": 42,
+      "projecaoDeCredito": 58
     }
   }
 }
