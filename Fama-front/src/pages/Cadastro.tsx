@@ -1,8 +1,6 @@
 import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
-
-import { star } from 'ionicons/icons'
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 const Home: React.FC = () => {
