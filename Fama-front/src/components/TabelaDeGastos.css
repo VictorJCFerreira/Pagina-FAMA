@@ -9,9 +9,9 @@ ion-col {
 
 /* Estilo para o modal */
 .custom-modal {
-  width: 300px; /* Largura personalizada */
-  height: 200px; /* Altura personalizada */
-  border: 1px solid #ccc; /* Borda personalizada */
+  width: 300rem; /* Largura personalizada */
+  height: 200rem; /* Altura personalizada */
+  border: 1rem solid #ccc; /* Borda personalizada */
   background-color: #fff; /* Cor de fundo personalizada */
   position: relative;
   top: 50%;
@@ -20,3 +20,31 @@ ion-col {
   padding: 20px;
 }
 
+/* Em seu arquivo CSS */
+.modal-centered {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Estilo adicional para o conteúdo do modal */
+.modal-content {
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* estilos.css */
+
+/* Estilizando o IonInput com uma classe */
+.custom-input {
+  background-color: #660616; /* Cor de fundo personalizada */
+  color: #fff; /* Cor do texto personalizada */
+  border: 1px solid #ccc; /* Borda personalizada */
+  /* Outros estilos personalizados, como tamanho de fonte, margens, etc. */
+}

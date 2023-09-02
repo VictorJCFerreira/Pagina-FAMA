@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
-import { IonCol, IonGrid, IonRow , IonFab, IonFabButton, IonIcon , IonModal, IonButton} from '@ionic/react';
+import { IonCol,
+IonGrid,
+IonRow,
+IonFab, 
+IonFabButton, 
+IonIcon ,
+IonModal, 
+IonButton,
+IonInput,
+IonAlert} from '@ionic/react';
 import { add } from 'ionicons/icons';
 import './TabelaDeGastos.css';
+
 
 function TabelaGastosEfetuados() {
   const [mostrarModal, setMostrarModal] = useState(false);
@@ -52,9 +62,9 @@ function TabelaGastosEfetuados() {
       <div style={{ margin: '50px' }}></div>
       {/* Modal */}
       
-      <IonModal isOpen={mostrarModal}>
+      <IonModal isOpen={mostrarModal} onDidDismiss={() => setMostrarModal(false)}>
       <div>Efetuar gasto</div>
-      <TabelaGastosPendentes/>
+      <TabelaGastosPendentesComBotao/>
       <IonButton onClick={fecharModal}>Fechar</IonButton>
       </IonModal>
     </IonGrid>
@@ -96,5 +106,67 @@ function TabelaGastosPendentes() {
 }
 export { TabelaGastosPendentes };
 
+function TabelaGastosPendentesComBotao() {
+  const [TabelaGastosPendentes, setGastosEfetuados] = useState([
+    { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
+    { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
+  ]);
 
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [situação, setSituação] = useState(""); // Estado para armazenar a situação digitada
+
+  const handleMostrarModal = () => {
+    setMostrarModal(true);
+  }
+
+  const handleFecharModal = () => {
+    setMostrarModal(false);
+    setSituação(""); // Limpar o campo de situação ao fechar o modal
+  }
+
+
+  const handleConfirmarSituação = () => {
+    // Lógica para processar a situação aqui
+    console.log("Situação digitada:", situação);
+    setMostrarModal(false); // Feche o modal após confirmar a situação
+  }
+
+
+  return (
+      <IonGrid>
+        <IonRow>
+          <IonCol>Gastos Pendentes</IonCol>
+        </IonRow>
+        <IonRow>
+          <IonCol>Tipo de gasto</IonCol>
+          <IonCol>Descrição</IonCol>
+          <IonCol>Valor</IonCol>
+          <IonCol>Adicionar</IonCol>
+        </IonRow>
+        {TabelaGastosPendentes.map((item, index) => (
+        <IonRow key={index}>
+          <IonCol>{item.tipoDeGasto}</IonCol>
+          <IonCol>{item.descricao}</IonCol>
+          <IonCol>{item.valor}</IonCol>
+          {/* Adicione um botão "+" para cada item */}
+          <IonCol>
+          <IonButton onClick={handleMostrarModal}>+</IonButton>
+          </IonCol>
+        </IonRow>
+      ))}
+       <IonModal isOpen={mostrarModal} onDidDismiss={handleFecharModal}  className="modal-centered">
+        <div className="modal-content">
+          <IonInput
+            placeholder="Digite a situação"
+            value={situação}
+            onIonChange={(e) => setSituação(e.detail.value!)}
+            className="custom-input"
+          />
+          <IonButton onClick={handleConfirmarSituação}>Confirmar</IonButton>
+          <IonButton onClick={handleFecharModal}>Cancelar</IonButton>
+        </div>
+      </IonModal>
+      </IonGrid>
+    );
+}
 
