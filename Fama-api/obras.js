@@ -1,7 +1,7 @@
 const fs = require('fs');
 const { json } = require('stream/consumers');
 
-//por enquanto só está analisando obra1
+//por enquanto só está analisando[0]
 
 //calcula dias decorridos e dias atrasados
 
@@ -21,7 +21,7 @@ function verificaDias()
     const jsonObject = JSON.parse(jsonContent);
     const dataAtual = new Date();
 
-    const dataDeInicio = jsonObject.obra1.datas.dataDeInicio; //por enquanto só está analisando obra1
+    const dataDeInicio = jsonObject[0].datas.dataDeInicio; //por enquanto só está analisando[0]
     const diaDeInicio = dataDeInicio.dia;
     const mesDeInicio = dataDeInicio.mes;
     const anoDeInicio = dataDeInicio.ano;
@@ -31,13 +31,11 @@ function verificaDias()
 
     const diferencaDias = differenceInDays(dataAtual, dataDeInicioForm);
 
-    jsonObject.obra1.datas.diasDecorridos = diferencaDias;
-
-    console.log(`A diferença de dias absolutos entre a data de início e a data atual é: ${diferencaDias} dias`); 
+    jsonObject[0].datas.diasDecorridos = diferencaDias;
     fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
     //se atraso -> dias de atraso
-    const dataDeEntrega = jsonObject.obra1.datas.dataDeEntrega;
+    const dataDeEntrega = jsonObject[0].datas.dataDeEntrega;
     const diaDeEntrega = dataDeEntrega.dia;
     const mesDeEntrega = dataDeEntrega.mes;
     const anoDeEntrega = dataDeEntrega.ano;
@@ -46,7 +44,7 @@ function verificaDias()
 
     const diferencaDiasAtraso = differenceInDays(dataAtual, dataDeEntregaForm);
     if (diferencaDiasAtraso > 0) {
-      jsonObject.obra1.datas.diasAtrasados = diferencaDiasAtraso;
+      jsonObject[0].datas.diasAtrasados = diferencaDiasAtraso;
       fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
     }
 
@@ -65,15 +63,15 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
   }
   const jsonObject = JSON.parse(jsonContent);
 
-  const gastosEfetuados = jsonObject.obra1.orçamento.gastosEfetuados;
-  const gastosPendentes = jsonObject.obra1.orçamento.gastosPendentes;
+  const gastosEfetuados = jsonObject[0].orçamento.gastosEfetuados;
+  const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
 
   var somaGastosEfetuados = 0;
   for(gasto of gastosEfetuados){
     somaGastosEfetuados += gasto.valor
   }
 
-  jsonObject.obra1.orçamento.somaGastosEfetuados = somaGastosEfetuados;
+  jsonObject[0].orçamento.somaGastosEfetuados = somaGastosEfetuados;
   fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   var somaGastosPendentes = 0;
@@ -81,28 +79,57 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
     somaGastosPendentes += gasto.valor
   }
 
-  jsonObject.obra1.orçamento.somaGastosPendentes = somaGastosPendentes;
+  jsonObject[0].orçamento.somaGastosPendentes = somaGastosPendentes;
   fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
-  valorPagoObra = jsonObject.obra1.orçamento.valorPagoObra
-  credito = valorPagoObra - somaGastosEfetuados
+  valorPagoObra = jsonObject[0].orçamento.valorPagoObra;
+  credito = valorPagoObra - somaGastosEfetuados;
 
 
-  jsonObject.obra1.orçamento.credito = credito;
+  jsonObject[0].orçamento.credito = credito;
   fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   const projecaoDeGastos = somaGastosEfetuados + somaGastosPendentes
-  jsonObject.obra1.orçamento.projecaoDeGastos = projecaoDeGastos
+  jsonObject[0].orçamento.projecaoDeGastos = projecaoDeGastos
   fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   const projecaoDeCredito = credito - somaGastosPendentes
-  jsonObject.obra1.orçamento.projecaoDeCredito = projecaoDeCredito
+  jsonObject[0].orçamento.projecaoDeCredito = projecaoDeCredito
   fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
 
-})
+});
 }
 
 
+function efetuarGasto() {
+  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+    const jsonObject = JSON.parse(jsonContent);
+  
+    /* const gastosEfetuados = jsonObject[0].orçamento.gastosEfetuados; */
+    const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
 
-orçamentoCalculo();
+    numero = 0
+    situacao = "Entregue"
+
+    gastosPendentes[numero].situacao = situacao
+
+    const gastoEfetuado = gastosPendentes[numero];
+
+    jsonObject[0].orçamento.gastosEfetuados.push(gastoEfetuado);
+    jsonObject[0].orçamento.gastosPendentes.splice(numero, 1)
+    
+
+    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  
+
+  })
+}
+
+
+efetuarGasto()
+
