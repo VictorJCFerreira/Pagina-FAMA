@@ -109,8 +109,7 @@ function efetuarGasto() {
       return;
     }
     const jsonObject = JSON.parse(jsonContent);
-  
-    /* const gastosEfetuados = jsonObject[0].orçamento.gastosEfetuados; */
+    
     const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
 
     numero = 0
@@ -130,6 +129,4 @@ function efetuarGasto() {
   })
 }
 
-
-efetuarGasto()
 
