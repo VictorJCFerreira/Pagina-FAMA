@@ -117,10 +117,20 @@ function TabelaGastosEfetuados() {
 export default TabelaGastosEfetuados;
 
 function TabelaGastosPendentes() {
+  const [mostrarModalAdicionarPendente, setMostrarModalAicionarPendente] = useState(false);
+  
   const [TabelaGastosPendentes, setGastosEfetuados] = useState([
     { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
     { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
   ]);
+
+  function abrirModalAdicionarPendente() {
+    setMostrarModalAicionarPendente(true);
+  }
+
+  const handleFecharModalEditarSituação = () => {
+    setMostrarModalAicionarPendente(false);
+  }
 
   return (
       <IonGrid>
@@ -140,7 +150,16 @@ function TabelaGastosPendentes() {
           <IonCol>{item.valor}</IonCol>
         </IonRow>
       ))}
-        
+      
+      <IonRow>
+      <IonCol><IonButton size= "small" onClick={abrirModalAdicionarPendente}>+</IonButton></IonCol>
+      </IonRow>
+      <IonModal isOpen={mostrarModalAdicionarPendente} onDidDismiss={() => setMostrarModalAicionarPendente(false)}>
+      <div>Adicionar gasto Pendente</div>
+      <IonButton onClick={handleFecharModalEditarSituação}>Fechar</IonButton>
+      </IonModal>
+
+
       </IonGrid>
     );
 }
@@ -204,6 +223,7 @@ function TabelaGastosPendentesComBotao() {
           </IonCol>
         </IonRow>
       ))}
+      
        <IonModal isOpen={mostrarModal} onDidDismiss={handleFecharModal}  className="modal-centered">
         <div className="modal-content">
           <IonInput
