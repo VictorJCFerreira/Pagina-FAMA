@@ -45,15 +45,20 @@ function TabelaGastosEfetuados() {
   }
   
   const handleConfirmarSituaçãoNova = () => {
+    
     if (indiceClicado !== null) {
       // Lógica para processar a situação aqui usando o índice
       // Usar função de mudar situação que está no js
-      console.log("Situação digitada para o índice:", indiceClicado, situação);
-    
-      // Lógica para processar a situação
-      setMostrarModalEditarSituacao(false); // Feche o modal após confirmar a situação
-      setSituação("");
-      setIndiceClicado(null); // Limpe o índice clicado
+      if (situação == ""){
+        setMostrarModalEditarSituacao(false);
+      }
+      else{
+        console.log("Situação digitada para o índice:", indiceClicado, situação);
+        // Lógica para processar a situação
+        setMostrarModalEditarSituacao(false); // Feche o modal após confirmar a situação
+        setSituação("");
+        setIndiceClicado(null); // Limpe o índice clicado
+      }
     }
   } 
 
