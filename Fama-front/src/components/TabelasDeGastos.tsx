@@ -8,7 +8,8 @@ IonIcon ,
 IonModal, 
 IonButton,
 IonInput,
-IonAlert} from '@ionic/react';
+IonSelect,
+IonSelectOption} from '@ionic/react';
 import './TabelaDeGastos.css';
 
 
@@ -105,7 +106,7 @@ function TabelaGastosEfetuados() {
       <TabelaGastosPendentesComBotao/>
       <IonButton onClick={fecharModal}>Fechar</IonButton>
       </IonModal>
-      <div style={{ margin: '50px' }}></div>
+      <div style={{ margin: '5%' }}></div>
     </IonGrid>
     
     
@@ -156,11 +157,19 @@ function TabelaGastosPendentes() {
       </IonRow>
       <IonModal isOpen={mostrarModalAdicionarPendente} onDidDismiss={() => setMostrarModalAicionarPendente(false)}>
       <div>Adicionar gasto Pendente</div>
+      {/* Lista suspensa para os tipos de gasto */}
+      <IonSelect
+        placeholder="Selecione o tipo de gasto"
+        >
+        <IonSelectOption value="Pedreiro">Pedreiro</IonSelectOption>
+        <IonSelectOption value="Material">Material</IonSelectOption>
+      {/* Adicione mais opções conforme necessário */}
+      </IonSelect>
       <IonButton onClick={handleFecharModalEditarSituação}>Fechar</IonButton>
       </IonModal>
+      <div style={{ margin: '5%' }}></div>
 
-
-      </IonGrid>
+    </IonGrid>
     );
 }
 export { TabelaGastosPendentes };
