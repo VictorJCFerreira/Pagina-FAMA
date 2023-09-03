@@ -112,10 +112,6 @@ function efetuarGasto(numero , situacao) {
     
     const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
 
-    //apagar esses valores quando fizer a API
-    numero = 0
-    situacao = "Entregue"
-    //
 
     gastosPendentes[numero].situacao = situacao
 
@@ -150,6 +146,30 @@ function alterarSituação(index, situacaonova){
   });
 }
 
-alterarSituação(0,"Entregue")
+function novoGastoPendente(tipoDeGasto, descricao , valor){
+  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+    
+    const jsonObject = JSON.parse(jsonContent);
+   
+    const novoGastoPendente = {
+      tipoDeGasto: tipoDeGasto,
+      descricao: descricao,
+      valor: valor
+    };
+  
+    jsonObject[0].orçamento.gastosPendentes.push(novoGastoPendente)
+    
+
+    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+
+  });
+} 
+
+novoGastoPendente("Material" , "tijolo 4" , 30)
+
 
 

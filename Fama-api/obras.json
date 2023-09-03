@@ -38,13 +38,17 @@
         {
           "tipoDeGasto": "Material",
           "descricao": "Tijolo 2",
-          "valor": 5,
-          "situacao": "Entregue"
+          "valor": 5
         },
         {
           "tipoDeGasto": "Material",
           "descricao": "Tijolo 3",
           "valor": 12
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "tijolo 4",
+          "valor": 30
         }
       ],
       "somaGastosPendentes": 17,

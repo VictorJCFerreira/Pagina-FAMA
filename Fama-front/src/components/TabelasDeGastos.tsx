@@ -24,7 +24,7 @@ function TabelaGastosEfetuados() {
   const [gastosEfetuados, setGastosEfetuados] = useState([
     { tipoDeGasto: "Pedreiro", descricao: "Mestre de obras", valor: 20, situacao: "Confirmado" },
     { tipoDeGasto: "Material", descricao: "Tijolo 1", valor: 5, situacao: "Confirmado" }
-  ]);
+  ]); //mudar aqui para o arquivo json
 
   function abrirModal() {
     setMostrarModal(true);
