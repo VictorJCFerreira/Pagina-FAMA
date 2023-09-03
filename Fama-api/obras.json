@@ -24,7 +24,7 @@
           "tipoDeGasto": "Pedreiro",
           "descricao": "Mestre de obras",
           "valor": 20,
-          "situacao": "Confirmado"
+          "situacao": "Entregue"
         },
         {
           "tipoDeGasto": "Material",

@@ -102,7 +102,7 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
 }
 
 
-function efetuarGasto() {
+function efetuarGasto(numero , situacao) {
   fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);
@@ -112,8 +112,10 @@ function efetuarGasto() {
     
     const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
 
+    //apagar esses valores quando fizer a API
     numero = 0
     situacao = "Entregue"
+    //
 
     gastosPendentes[numero].situacao = situacao
 
@@ -128,5 +130,26 @@ function efetuarGasto() {
 
   })
 }
+
+
+function alterarSituação(index, situacaonova){
+  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+
+    const jsonObject = JSON.parse(jsonContent);
+
+
+    //muda situação:
+    jsonObject[0].orçamento.gastosEfetuados[index].situacao = situacaonova
+
+    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+
+  });
+}
+
+alterarSituação(0,"Entregue")
 
 

@@ -29,8 +29,8 @@ ion-col {
 
 /* Estilo adicional para o conteúdo do modal */
 .modal-content {
-  padding: 1.25rem;
-  border-radius: 0.3125rem;
+  padding: 20px;
+  border-radius: 5px;
   text-align: center;
   display: flex;
   flex-direction: column;

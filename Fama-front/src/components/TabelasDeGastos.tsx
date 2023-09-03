@@ -9,7 +9,6 @@ IonModal,
 IonButton,
 IonInput,
 IonAlert} from '@ionic/react';
-import { add } from 'ionicons/icons';
 import './TabelaDeGastos.css';
 
 
