@@ -27,12 +27,6 @@ function TabelaGastosEfetuados() {
   function fecharModal() {
     setMostrarModal(false);
   }
-
-  function adicionarItem() {
-    // Lógica para adicionar um novo item à lista de gastos efetuados
-    const novoItem = { tipoDeGasto: "Novo Gasto", descricao: "Descrição", valor: 0, situacao: "Pendente" };
-    setGastosEfetuados([...gastosEfetuados, novoItem]);
-  }
   
   return (
     <IonGrid>
@@ -52,22 +46,19 @@ function TabelaGastosEfetuados() {
           <IonCol>{item.valor}</IonCol>
           <IonCol>{item.situacao}</IonCol>
         </IonRow>
+        
       ))}
-      
-      <IonFab>
-      <IonFabButton size= "small" onClick={abrirModal}>
-      <IonIcon icon={add}></IonIcon>
-      </IonFabButton>
-      </IonFab>
-      <div style={{ margin: '50px' }}></div>
-      {/* Modal */}
-      
+      <IonRow>
+      <IonCol><IonButton size= "small" onClick={abrirModal}>+</IonButton></IonCol>
+      </IonRow>
       <IonModal isOpen={mostrarModal} onDidDismiss={() => setMostrarModal(false)}>
       <div>Efetuar gasto</div>
       <TabelaGastosPendentesComBotao/>
       <IonButton onClick={fecharModal}>Fechar</IonButton>
       </IonModal>
+      <div style={{ margin: '50px' }}></div>
     </IonGrid>
+    
     
     
 
@@ -107,15 +98,18 @@ function TabelaGastosPendentes() {
 export { TabelaGastosPendentes };
 
 function TabelaGastosPendentesComBotao() {
+  //substituir essas variaveis pelas que estão no json
   const [TabelaGastosPendentes, setGastosEfetuados] = useState([
     { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
-    { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
+    { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 } 
   ]);
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [situação, setSituação] = useState(""); // Estado para armazenar a situação digitada
-
-  const handleMostrarModal = () => {
+  const [indiceClicado, setIndiceClicado] = useState<number | null>(null);;
+  
+  const handleMostrarModal = (index : number) => {
+    setIndiceClicado(index); // Armazene o índice
     setMostrarModal(true);
   }
 
@@ -126,10 +120,17 @@ function TabelaGastosPendentesComBotao() {
 
 
   const handleConfirmarSituação = () => {
-    // Lógica para processar a situação aqui
-    console.log("Situação digitada:", situação);
-    setMostrarModal(false); // Feche o modal após confirmar a situação
-  }
+    if (indiceClicado !== null) {
+      // Lógica para processar a situação aqui usando o índice
+      // Usar função de efetuar pagamento que está no js
+      console.log("Situação digitada para o índice:", indiceClicado, situação);
+    
+      // Lógica para processar a situação
+      setMostrarModal(false); // Feche o modal após confirmar a situação
+      setSituação("");
+      setIndiceClicado(null); // Limpe o índice clicado
+    }
+  } 
 
 
   return (
@@ -150,7 +151,7 @@ function TabelaGastosPendentesComBotao() {
           <IonCol>{item.valor}</IonCol>
           {/* Adicione um botão "+" para cada item */}
           <IonCol>
-          <IonButton onClick={handleMostrarModal}>+</IonButton>
+          <IonButton onClick={() => handleMostrarModal(index)}>+</IonButton>
           </IonCol>
         </IonRow>
       ))}
