@@ -118,20 +118,36 @@ function TabelaGastosEfetuados() {
 export default TabelaGastosEfetuados;
 
 function TabelaGastosPendentes() {
-  const [mostrarModalAdicionarPendente, setMostrarModalAicionarPendente] = useState(false);
+  const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
   
   const [TabelaGastosPendentes, setGastosEfetuados] = useState([
     { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
     { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
   ]);
 
-  function abrirModalAdicionarPendente() {
-    setMostrarModalAicionarPendente(true);
+  const [tipoDeGastoSelecionado, setTipoDeGastoSelecionado] = useState(""); // Estado para armazenar a situação digitada
+
+  function handleAbrirModalAdicionarPendente() {
+    setMostrarModalAdicionarPendente(true);
   }
 
-  const handleFecharModalEditarSituação = () => {
-    setMostrarModalAicionarPendente(false);
+  const handleFecharModalAdicionarPendente = () => {
+    setMostrarModalAdicionarPendente(false);
+    setTipoDeGastoSelecionado("");
   }
+
+  const handleConfirmarNovoTipo = () => {
+    // Lógica para processar o tipo de gasto aqui 
+    // Usar função de mudar situação que está no js
+    // Provavelmente essa parte irá sofrer bastantes alterações
+    
+    setMostrarModalAdicionarPendente(false);
+    if (tipoDeGastoSelecionado != ""){
+      console.log("Tipo de gasto: " , tipoDeGastoSelecionado);
+      setTipoDeGastoSelecionado("");
+    }
+  }
+
 
   return (
       <IonGrid>
@@ -153,19 +169,30 @@ function TabelaGastosPendentes() {
       ))}
       
       <IonRow>
-      <IonCol><IonButton size= "small" onClick={abrirModalAdicionarPendente}>+</IonButton></IonCol>
+      <IonCol><IonButton size= "small" onClick={handleAbrirModalAdicionarPendente}>+</IonButton></IonCol>
       </IonRow>
-      <IonModal isOpen={mostrarModalAdicionarPendente} onDidDismiss={() => setMostrarModalAicionarPendente(false)}>
+      <IonModal isOpen={mostrarModalAdicionarPendente} onDidDismiss={handleFecharModalAdicionarPendente}>
+      <div className="modal-content">
       <div>Adicionar gasto Pendente</div>
       {/* Lista suspensa para os tipos de gasto */}
+
       <IonSelect
         placeholder="Selecione o tipo de gasto"
+        className="custom-select"
+        value={tipoDeGastoSelecionado}
+        onIonChange={(e) => {
+          setTipoDeGastoSelecionado(e.detail.value);
+        }}
         >
         <IonSelectOption value="Pedreiro">Pedreiro</IonSelectOption>
         <IonSelectOption value="Material">Material</IonSelectOption>
+        
       {/* Adicione mais opções conforme necessário */}
       </IonSelect>
-      <IonButton onClick={handleFecharModalEditarSituação}>Fechar</IonButton>
+      
+      <IonButton onClick={handleConfirmarNovoTipo}>Confirmar</IonButton>
+      <IonButton onClick={handleFecharModalAdicionarPendente}>Fechar</IonButton>
+      </div>
       </IonModal>
       <div style={{ margin: '5%' }}></div>
 
@@ -173,6 +200,8 @@ function TabelaGastosPendentes() {
     );
 }
 export { TabelaGastosPendentes };
+
+
 
 function TabelaGastosPendentesComBotao() {
   //substituir essas variaveis pelas que estão no json
