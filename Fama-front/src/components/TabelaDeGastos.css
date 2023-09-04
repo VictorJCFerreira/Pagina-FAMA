@@ -48,3 +48,9 @@ ion-col {
   border: 1px solid #ccc; /* Borda personalizada */
   /* Outros estilos personalizados, como tamanho de fonte, margens, etc. */
 }
+
+
+.custom-select {
+  --background: #660616; /* Altere para a cor desejada */
+  color: #ffffff; /* Branco puro */
+}
