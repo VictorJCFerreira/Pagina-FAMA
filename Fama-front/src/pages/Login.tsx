@@ -1,5 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, IonToast } from '@ionic/react';
-import './Home.css';
+import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,22 +7,25 @@ import { loginUser } from '../firebaseConfig';
 const Home: React.FC = () => {
   const [nome, setUsername] = useState('');
   const [senha, setPassword] = useState('');
-  const [showToast, setShowToast] = useState(false);
-  const [toastMessage, setToastMessage] = useState(''); 
+
+  const[present] = useIonToast()
+
   async function login() {
     try {
       const res = await loginUser(nome, senha);
       if (!res) {
-        setToastMessage('Erro ao entrar com as suas credenciais');
-        setShowToast(true);
+        present(
+          {message: 'Erro ao entrar com as suas credenciais.',
+          duration: 4000,
+          position: 'middle'})
       } else {
-        setToastMessage('Você está logado!');
-        setShowToast(true);
+        present({
+        message: 'Você está logado!',
+        duration: 4000,
+        position: 'middle'})
       }
     } catch (error) {
       console.error('Login error:', error);
-      setToastMessage('Erro ao efetuar login');
-      setShowToast(true); 
     }
   }
 
@@ -41,14 +43,6 @@ const Home: React.FC = () => {
         <IonButton onClick={login}>Login</IonButton>
         <p>Novo por aqui? <Link to="/cadastro">Cadastro</Link></p>
 
-        
-        <IonToast
-          isOpen={showToast}
-          onDidDismiss={() => setShowToast(false)}
-          message={toastMessage}
-          duration={2000} 
-          position="middle" 
-        />
       </IonContent>
     </IonPage>
   );

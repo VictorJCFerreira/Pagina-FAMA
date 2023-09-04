@@ -2,7 +2,7 @@ import { IonButton, IonContent, IonHeader, IonIcon, IonItem, IonList, IonPage, I
 import ExploreContainer from '../components/ExploreContainer';
 import './Home.css';
 
-import { star } from 'ionicons/icons'
+import { IonThumbnail } from '@ionic/react';
 const Home: React.FC = () => {
   return (
     <IonPage>
@@ -12,6 +12,9 @@ const Home: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
+        <IonThumbnail>
+          <img alt="Silhouette of mountains" src="https://play-lh.googleusercontent.com/6eCSvabJSWY8zLJ0owuqU1Xz7zNjhs7sCy4_3W8v7ybE2gkQX4QLpZdOBNjFaEScN5o=s512-rw" />
+        </IonThumbnail>
         <IonButton routerLink="/login">Login</IonButton>
         <IonButton routerLink="/cadastro" color="secondary">Cadastro</IonButton>
       </IonContent>

@@ -1,16 +1,31 @@
-import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, IonText, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
-import './Home.css';
-import { useState } from 'react';
+import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, useIonToast, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import react,{ useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { registerUser } from '../firebaseConfig'
+
 const Home: React.FC = () => {
   const[nome, setUsername] = useState('')
   const[senha, setPassword] = useState('')
   const[confirma, setCPassword] = useState('')
+  
+  const[present] = useIonToast()
 
+  async function register(){
+    if(senha !== confirma){
+      present(
+        {message: 'As senhas não são iguais.',
+        duration: 4000,
+        position: 'middle'})
+  
+    }
+    if(nome.trim() === '' || senha.trim() === ''){
+      present(
+        {message: 'Nome e senha são obrigatórios.',
+        duration: 4000,
+        position: 'middle'});
+    }
 
-  function registerUser(){
-    console.log(nome,senha,confirma)
+    const res = await registerUser(nome, senha)
   }
   return (
     <IonPage>
@@ -26,9 +41,10 @@ const Home: React.FC = () => {
 
         <IonInput type="password" placeholder="Confirmar senha:" onIonChange={(e: any)=> setCPassword(e.target.value)}></IonInput>
 
-        <IonButton onClick={registerUser}>Cadastro</IonButton>
+        <IonButton onClick={register}>Cadastro</IonButton>
 
         <p>Já possui uma conta? <Link to="/login">Login</Link></p>
+
       </IonContent>
     </IonPage>
   );

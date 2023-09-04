@@ -1,7 +1,6 @@
 import * as firebase from 'firebase/app'
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import 'firebase/firestore'
-import { useState } from 'react';
 
 const config = {
   apiKey: "AIzaSyDknGkCaS7VpaImfBFwEU5-DcfDkhmcDrg",
@@ -31,4 +30,18 @@ export async function loginUser(nome: string, senha: string) {
             return false
         }
     
+}
+export async function registerUser(nome: string, senha: string) {
+    const email = `$(nome)@codedamn.com`
+    try{
+
+        const res = await createUserWithEmailAndPassword(auth, email, senha)
+
+        console.log(res)
+        return true
+    }
+    catch (error) {
+        console.log(error)
+        return false
+    }
 }
