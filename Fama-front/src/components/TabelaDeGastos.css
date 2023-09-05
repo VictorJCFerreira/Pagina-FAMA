@@ -52,5 +52,9 @@ ion-col {
 
 .custom-select {
   --background: #660616; /* Altere para a cor desejada */
+<<<<<<< HEAD
   color: rgb(255, 255, 255); /* Cor do texto personalizada (branco) */
+=======
+  color: #ffffff; /* Branco puro */
+>>>>>>> cd2affba09fdfcfb01ba4f3d8ee336e2f3aa44d6
 }
