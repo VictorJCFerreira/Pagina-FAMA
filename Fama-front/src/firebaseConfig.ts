@@ -16,8 +16,7 @@ const config = {
 firebase.initializeApp(config)
 
 const auth = getAuth()
-export async function loginUser(nome: string, senha: string) {
-    const email = `$(nome)@codedamn.com`
+export async function loginUser(email: string, senha: string) {
     try{
 
         const res = await signInWithEmailAndPassword(auth, email, senha)
@@ -26,13 +25,12 @@ export async function loginUser(nome: string, senha: string) {
         return true
     }
         catch(error){
-            console.log(error)
-            return false
+        console.log(error)
+        return false
         }
     
 }
-export async function registerUser(nome: string, senha: string) {
-    const email = `$(nome)@codedamn.com`
+export async function registerUser(email: string, senha: string) {
     try{
 
         const res = await createUserWithEmailAndPassword(auth, email, senha)
