@@ -7,20 +7,18 @@ const port = 9000
 
 app.use(cors())
 const caminhoArquivo = './obras.json';
-let jsonObject;
-
-fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
-    if (err) {
-        console.error('Erro:', err);
-        return;
-    }
-    jsonObject = JSON.parse(jsonContent); 
-});
 
 app.get('/obras', function (req, res) {
-  res.send(jsonObject)
-})
+    const fileStream = fs.createReadStream(caminhoArquivo, { encoding: 'utf8' });
 
+    fileStream.on('error', (err) => {
+        console.error('Erro:', err);
+        res.status(500).json({ error: 'Erro ao ler o arquivo JSON' });
+    });
+
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
+    fileStream.pipe(res);
+});
 
 app.listen(port, ()=>{
     console.log(`http://localhost:${port}/obras`)
