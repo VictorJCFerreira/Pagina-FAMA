@@ -27,7 +27,7 @@ const Home: React.FC = () => {
         present({
         message: 'Você está cadastrado!',
         duration: 4000,
-        position: 'middle',
+        position: 'middle',  
         color: 'light'})
       }
     }catch (error) {

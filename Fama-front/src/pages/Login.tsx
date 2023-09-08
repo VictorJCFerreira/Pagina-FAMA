@@ -1,8 +1,8 @@
 import { IonButton, IonContent, IonHeader, IonInput, IonPage, IonTitle, IonToolbar, useIonToast } from '@ionic/react';
 import { getAuth } from 'firebase/auth'
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { loginUser } from '../firebaseConfig';
+import { Link, useHistory } from 'react-router-dom';
+import { loginUser, getUserRole } from '../firebaseConfig';
 import LoadingSpinner from '../LoadingSpinner';
 
 const Home: React.FC = () => {
@@ -11,6 +11,7 @@ const Home: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const[present] = useIonToast()
+  const history = useHistory()
 
 
   async function login() {
@@ -32,7 +33,16 @@ const Home: React.FC = () => {
         message: 'Você está logado!',
         duration: 4000,
         position: 'middle',
-        color: 'light'})
+        color: 'light',
+      });
+      
+      const userRole = await getUserRole(email);
+
+      if (userRole === 'admin') {
+        history.push('/dashboard');
+      } else if (userRole === 'user') {
+        history.push('/dashboard');
+      }
       }
     } catch (error) {
       console.error('Login error:', error);
