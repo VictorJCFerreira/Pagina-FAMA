@@ -2,13 +2,20 @@ const express = require('express')
 const fs = require('fs')
 const app = express() 
 const cors = require('cors')
+const {
+    verificaDias,
+    orçamentoCalculo,
+    efetuarGasto,
+    alterarSituação,
+    novoGastoPendente,
+  } = require("../obras")
 
 const port = 9000
 
 app.use(cors())
 const caminhoArquivo = './obras.json';
 
-app.get('/obras', function (req, res) {
+app.get('/obras/api', function (req, res) {
     const fileStream = fs.createReadStream(caminhoArquivo, { encoding: 'utf8' });
 
     fileStream.on('error', (err) => {
@@ -21,5 +28,5 @@ app.get('/obras', function (req, res) {
 });
 
 app.listen(port, ()=>{
-    console.log(`http://localhost:${port}/obras`)
+    console.log(`http://localhost:${port}/obras/api`)
 }) 

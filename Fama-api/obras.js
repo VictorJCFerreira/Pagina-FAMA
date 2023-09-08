@@ -171,5 +171,11 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
 
 novoGastoPendente("Material" , "tijolo 4" , 30)
 
-
+module.exports = {
+  verificaDias,
+  orçamentoCalculo,
+  efetuarGasto,
+  alterarSituação,
+  novoGastoPendente,
+}
 
