@@ -11,6 +11,19 @@ IonInput,
 IonSelect,
 IonSelectOption} from '@ionic/react';
 import './TabelaDeGastos.css';
+import axios from "axios";
+
+const url = "http://localhost:9000/obras/api"
+
+function getObra(){
+  axios.get(url)
+  .then(response =>{
+    console.log(response)
+  })
+  .catch(error => console.log(error))
+}
+
+getObra()
 
 
 function TabelaGastosEfetuados() {

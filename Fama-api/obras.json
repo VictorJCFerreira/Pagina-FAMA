@@ -49,6 +49,11 @@
           "tipoDeGasto": "Material",
           "descricao": "tijolo 4",
           "valor": 30
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "tijolo 4",
+          "valor": 30
         }
       ],
       "somaGastosPendentes": 17,
