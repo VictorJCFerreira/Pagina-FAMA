@@ -9,6 +9,7 @@ import { response } from "express";
 
 const url = "http://localhost:9000/obras/api"
 
+
 function getObras(){
   axios.get(url)
   .then(response =>{
@@ -16,7 +17,8 @@ function getObras(){
 console.log(dados)
   })
   .catch(error => console.log(error))
-}
+};
+
 
 function getObra(){
   axios.get(`${url}/id`)
@@ -25,15 +27,8 @@ function getObra(){
     Result.textContent = JSON.stringify(dados)
   })
   .catch(error => console.log(error))
-}
+};
 
-function deleteObra(){
-
-}
-
-function updateObra(){
-
-}
 
 function addNewObra(){
   axios.post(url, {
@@ -45,9 +40,35 @@ function addNewObra(){
     console.log(response.data)
   })
   .catch(error => console.log(error))
-}
+};
+
+
+function updateObra(){
+  axios.put(`${url}/:id`, {
+    nomeObra: "ExNome",
+    responsavel: "ExResp",
+    local: "Exlocal",
+  })
+  .then(response =>{
+    const dados = response.data
+    alert(JSON.stringify(dados))
+  })
+  .catch(error => console.log(error))
+};
+
+
+function deleteObra(){
+  axios.delete(`${url}/:id`)
+  .then(response =>{
+    const dados = response.data
+    alert(JSON.stringify(dados))
+  })
+  .catch(error => console.log(error))
+};
+
 
 const caminhoArquivo = './obras.json';
+
 
 function verificaDias() 
 {

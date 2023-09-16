@@ -13,7 +13,6 @@ IonSelectOption} from '@ionic/react';
 import './TabelaDeGastos.css';
 
 
-
 function TabelaGastosEfetuados() {
   const [mostrarModal, setMostrarModal] = useState(false);
   
