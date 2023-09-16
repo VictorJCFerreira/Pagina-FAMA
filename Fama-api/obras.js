@@ -4,7 +4,48 @@ const { json } = require('stream/consumers');
 //por enquanto só está analisando[0]
 
 //calcula dias decorridos e dias atrasados
+import axios from "axios";
+import { response } from "express";
 
+const url = "http://localhost:9000/obras/api"
+
+function getObras(){
+  axios.get(url)
+  .then(response =>{
+    const dados = response.data
+console.log(dados)
+  })
+  .catch(error => console.log(error))
+}
+
+function getObra(){
+  axios.get(`${url}/id`)
+  .then(response =>{
+    const dados = response.data
+    Result.textContent = JSON.stringify(dados)
+  })
+  .catch(error => console.log(error))
+}
+
+function deleteObra(){
+
+}
+
+function updateObra(){
+
+}
+
+function addNewObra(){
+  axios.post(url, {
+    nomeObra: "Edificio Nice",
+    responsavel: "José Teste",
+    local: "Boa Viagem, Rua X, Y°",
+  })
+  .then(response =>{
+    console.log(response.data)
+  })
+  .catch(error => console.log(error))
+}
 
 const caminhoArquivo = './obras.json';
 
@@ -177,5 +218,10 @@ module.exports = {
   efetuarGasto,
   alterarSituação,
   novoGastoPendente,
+  getObra,
+  getObras,
+  addNewObra,
+  updateObra,
+  deleteObra,
 }
 

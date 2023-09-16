@@ -11,19 +11,7 @@ IonInput,
 IonSelect,
 IonSelectOption} from '@ionic/react';
 import './TabelaDeGastos.css';
-import axios from "axios";
 
-const url = "http://localhost:9000/obras/api"
-
-function getObra(){
-  axios.get(url)
-  .then(response =>{
-    console.log(response)
-  })
-  .catch(error => console.log(error))
-}
-
-getObra()
 
 
 function TabelaGastosEfetuados() {
@@ -115,11 +103,15 @@ function TabelaGastosEfetuados() {
       <IonCol><IonButton size= "small" onClick={abrirModal}>+</IonButton></IonCol>
       </IonRow>
       <IonModal isOpen={mostrarModal} onDidDismiss={() => setMostrarModal(false)}>
-      <div>Efetuar gasto</div>
-      <TabelaGastosPendentesComBotao/>
-      <IonButton onClick={fecharModal}>Fechar</IonButton>
+        <div>Efetuar gasto</div>
+        <TabelaGastosPendentesComBotao/>
+        <IonButton onClick={fecharModal}>Fechar</IonButton>
       </IonModal>
       <div style={{ margin: '5%' }}></div>
+
+      <IonModal>
+        <div id='Results'></div>
+      </IonModal>
     </IonGrid>
     
     
