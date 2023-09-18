@@ -2,18 +2,28 @@ const express = require('express')
 const fs = require('fs')
 const app = express() 
 const cors = require('cors')
-const {
-    verificaDias,
-    orçamentoCalculo,
-    efetuarGasto,
-    alterarSituação,
-    novoGastoPendente,
-  } = require("../obras")
+
 
 const port = 9000
 
 app.use(cors())
+
 const caminhoArquivo = './obras.json';
+
+
+app.get('/obras/api', function (req, res) {
+    fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+        if (err) {
+          console.error('Erro:', err);
+          return;
+        }
+        const jsonObject = JSON.parse(jsonContent);
+
+        res.json(jsonObject[0]);
+        
+    })
+});
+
 
 let obras = [{
     id:0,
@@ -22,9 +32,9 @@ let obras = [{
     local: "Piedade, Rua Algusta de Freitas ,262",
 }]
 
-app.get('/obras/api', (req, res) => res.json({
+/*app.get('/obras/api', (req, res) => res.json({
     obras
-}))
+}))*/
 
 app.get('/obras/api/:id', (req, res) => {
     const obrasId = req.params.id
@@ -91,14 +101,3 @@ app.listen(port, ()=>{
 
 
 
-/*app.get('/obras/api', function (req, res) {
-    const fileStream = fs.createReadStream(caminhoArquivo, { encoding: 'utf8' });
-
-    fileStream.on('error', (err) => {
-        console.error('Erro:', err);
-        res.status(500).json({ error: 'Erro ao ler o arquivo JSON' });
-    });
-
-    res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    fileStream.pipe(res);
-});*/

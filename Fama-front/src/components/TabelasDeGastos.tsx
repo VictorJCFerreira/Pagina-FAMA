@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IonCol,
 IonGrid,
 IonRow,
@@ -11,9 +11,31 @@ IonInput,
 IonSelect,
 IonSelectOption} from '@ionic/react';
 import './TabelaDeGastos.css';
+import axios from "axios";
+
+const url = "http://localhost:9000/obras/api"
+
+function DadoObra() {
+  const [obrasData, setObrasData] = useState(null);
+
+  useEffect(() => {
+    axios.get(url)
+      .then((response) => {
+        setObrasData(response.data);
+        return obrasData;
+      })
+      .catch((error) => {
+        console.error('Erro ao obter dados das obras:', error);
+      });
+      console.log(obrasData)
+  },[]);
+}
+
 
 
 function TabelaGastosEfetuados() {
+  console.log(DadoObra())
+
   const [mostrarModal, setMostrarModal] = useState(false);
   
   const [mostrarModalEditarSituação, setMostrarModalEditarSituacao] = useState(false);
@@ -142,7 +164,7 @@ function TabelaGastosPendentes() {
 
   const handleConfirmarNovoTipo = () => {
     // Lógica para processar o tipo de gasto aqui 
-    // Usar função de mudar situação que está no js
+    // Usar função de alterarSituação que está no js
     // Provavelmente essa parte irá sofrer bastantes alterações
     
     setMostrarModalAdicionarPendente(false);

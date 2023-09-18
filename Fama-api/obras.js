@@ -1,11 +1,6 @@
 const fs = require('fs');
 const { json } = require('stream/consumers');
-
-//por enquanto só está analisando[0]
-
-//calcula dias decorridos e dias atrasados
 import axios from "axios";
-import { response } from "express";
 
 const url = "http://localhost:9000/obras/api"
 
@@ -14,7 +9,7 @@ function getObras(){
   axios.get(url)
   .then(response =>{
     const dados = response.data
-console.log(dados)
+  console.log(dados)
   })
   .catch(error => console.log(error))
 };
@@ -67,9 +62,12 @@ function deleteObra(){
 };
 
 
+
+//por enquanto só está analisando[0]
+
 const caminhoArquivo = './obras.json';
 
-
+//calcula dias decorridos e dias atrasados
 function verificaDias() 
 {
   fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
@@ -115,6 +113,7 @@ function verificaDias()
 
 
 //Orçamento
+
 
 //calcula: crédito , situação de lucro , projeção de gastos
 function orçamentoCalculo(){
