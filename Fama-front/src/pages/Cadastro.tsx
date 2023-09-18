@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, useIonToast, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, useIonToast, IonText, IonTitle, IonImg, IonToolbar } from '@ionic/react';
 import react,{ useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { registerUser } from '../firebaseConfig'
@@ -48,8 +48,18 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar>
-          <IonTitle>Cadastro</IonTitle>
+        <IonToolbar color='dark'>
+          <IonTitle></IonTitle>
+          <div  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding:'5px 0' }}>
+          <IonImg
+          src="https://construtorafama.com.br/wp-content/uploads/2021/03/logo@2x.png"
+          alt="Logo"
+          style={{
+            width: '100px', 
+            height: 'auto', 
+          }}
+          />
+          </div>
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
