@@ -6,7 +6,7 @@ const AdminDashboard: React.FC = () => {
     <IonPage>
     <IonHeader>
       <IonToolbar>
-        <IonTitle>Olá Adm!</IonTitle>
+        <IonTitle>Olá Administrador!</IonTitle>
       </IonToolbar>
     </IonHeader>
     <IonContent>

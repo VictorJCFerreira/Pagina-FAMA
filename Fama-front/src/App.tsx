@@ -9,7 +9,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import UserDashboard from './pages/UserDashboard';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { getUserRole } from './firebaseConfig';
+import { loginUser } from './firebaseConfig';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,28 +33,35 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => {
-  const [userRole, setUserRole] = useState<string | null>(null);
-  const auth = getAuth();
-  const db = getFirestore();
+  const [userId, setUserId] = useState<string | null>(null);
 
   useEffect(() => {
+    const auth = getAuth();
+    if (auth.currentUser) {
+      // There is an authenticated user
+      const user = auth.currentUser;
+      const userId = user.uid; // Get the user's UID
+      console.log('User is authenticated. User ID:', userId);
+    } else {
+      // No user is authenticated
+      console.log('No user is authenticated.');
+    }
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
-      if (user && user.email) {
-        const email = user.email;
-        const role = await getUserRole(email);
+      if (user) {
+        const uid = user.uid; // Get the user's ID
 
-        if (role) {
-          setUserRole(role);
+        if (uid) {
+          setUserId(uid); // Set the user's ID
         }
       } else {
-        setUserRole(null); // Set role to null if user is not authenticated
+        setUserId(null); // Set user ID to null if user is not authenticated
       }
     });
 
     return () => {
       unsubscribe();
     };
-  }, [auth]);
+  }, []);
 
  return(
   <IonApp>
@@ -64,7 +71,7 @@ const App: React.FC = () => {
       <Route exact path="/" render={() => <Redirect to="/home" />} />
       <Route path="/login" component={Login} />
       <Route path="/cadastro" component={Cadastro} />
-      <Route path="/dashboard"> <DashboardRoutes userRole={userRole} />
+      <Route path="/dashboard"> <DashboardRoutes userId={userId} />
       </Route>
     </IonRouterOutlet>
   </IonReactRouter>
@@ -73,23 +80,17 @@ const App: React.FC = () => {
 };
 
 
-const DashboardRoutes: React.FC<{ userRole: string | null }> = ({ userRole }) => {
-  if (userRole === 'admin') {
-    return (
-      <Switch>
-        <Route path="/dashboard/admin" component={AdminDashboard} />
-        <Redirect to="/dashboard/admin" />
-      </Switch>
-    );
-  } else if (userRole === 'user') {
-    return (
-      <Switch>
-        <Route path="/dashboard/user" component={UserDashboard} />
-        <Redirect to="/dashboard/user" />
-      </Switch>
-    );
+const DashboardRoutes: React.FC<{ userId: string | null }> = ({ userId }) => {
+  if (userId === '9gIk4XzfwAYAPSePmCUYkgmRQZh1') {
+    // Redirect to the admin dashboard for the specified user ID
+    return <AdminDashboard />
+  } else if (userId === 'wtJqF9cmUBZxSN9xPwn4pmS0thG3') {
+    // Redirect to the user dashboard for the specified user ID
+    return <UserDashboard />
   } else {
-    return <Redirect to="/login" />;
+    // Handle other cases, such as redirecting to a default dashboard or login
+    return 
+      <Redirect to="/login" />
   }
 };
 

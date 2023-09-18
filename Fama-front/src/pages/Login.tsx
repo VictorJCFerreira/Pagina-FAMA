@@ -15,6 +15,7 @@ const Home: React.FC = () => {
 
 
   async function login() {
+    console.log('Login button clicked');
     setIsLoading(true); 
     setError(null);
     try {
@@ -23,7 +24,7 @@ const Home: React.FC = () => {
         setError('Erro ao entrar com suas credenciais. Verifique seu email e senha.');
         present({
           message: 'Erro ao entrar com suas credenciais. Verifique seu email e senha.',
-          duration: 4000,
+          duration: 3000,
           position: 'middle',
           color: 'medium',
         });
@@ -31,17 +32,17 @@ const Home: React.FC = () => {
         setError(null);
         present({
         message: 'Você está logado!',
-        duration: 4000,
+        duration: 2000,
         position: 'middle',
         color: 'light',
       });
       
-      const userRole = await getUserRole(email);
+      const auth = getAuth();
+      const user = auth.currentUser;
 
-      if (userRole === 'admin') {
-        history.push('/dashboard');
-      } else if (userRole === 'user') {
-        history.push('/dashboard');
+      if (user) {
+        const userId = user.uid;
+        history.push(`/dashboard/user/${userId}`); // Redirect to user-specific dashboard
       }
       }
     } catch (error) {
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
       setError('Erro ao entrar com suas credenciais. Verifique seu email e senha.');
       present({
         message: 'Erro ao entrar com suas credenciais. Verifique seu email e senha.',
-        duration: 4000,
+        duration: 3000,
         position: 'middle',
         color: 'medium',
       });
@@ -83,4 +84,7 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+
+
 

@@ -1,7 +1,8 @@
 import * as firebase from 'firebase/app'
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, QuerySnapshot, DocumentData } from "firebase/firestore";
+import type { UserCredential } from 'firebase/auth';
 
 const config = {
   apiKey: "AIzaSyDknGkCaS7VpaImfBFwEU5-DcfDkhmcDrg",
@@ -16,13 +17,14 @@ const config = {
 
 const app = firebase.initializeApp(config)
 
-const auth = getAuth()
+const auth = getAuth(app)
 export async function loginUser(email: string, senha: string) {
     try{
 
-        const res = await signInWithEmailAndPassword(auth, email, senha)
-
-        console.log(res)
+        const res: UserCredential = await signInWithEmailAndPassword(auth, email, senha)
+        const user = res.user;
+        const uid = user.uid; // Get the user's UID
+        console.log(uid);
         return true
     }
         catch(error){
@@ -34,9 +36,10 @@ export async function loginUser(email: string, senha: string) {
 export async function registerUser(email: string, senha: string) {
     try{
 
-        const res = await createUserWithEmailAndPassword(auth, email, senha)
-
-        console.log(res)
+        const res: UserCredential = await createUserWithEmailAndPassword(auth, email, senha)
+        const user = res.user;
+        const uid = user.uid; // Get the user's UID
+        console.log(uid)
         return true
     }
     catch (error) {
@@ -46,33 +49,35 @@ export async function registerUser(email: string, senha: string) {
 }
 
 const db = getFirestore(app);
-try {
-    const docRefAdmin = await addDoc(collection(db, "users"), {
-      email: 'adm@gmail.com',
-      senha: '1234567',
-      role: 'admin'
-    });
-    console.log("Document written with ID: ", docRefAdmin.id);
+(async () =>{
+    try {
+        const docRefAdmin = await addDoc(collection(db, "users"), {
+        email: 'adm@gmail.com',
+        senha: '1234567',
+        role: 'adm'
+        });
+        console.log("Document written with ID: ", docRefAdmin.id);
 
-    const docRefUser = await addDoc(collection(db, "users"), {
-      email: 'eng@gmail.com',
-      senha: '1234567',
-      role: 'user'
+        const docRefUser = await addDoc(collection(db, "users"), {
+        email: 'eng@gmail.com',
+        senha: 'senha123',
+        role: 'user'
     });
     console.log("Document written with ID: ", docRefUser.id);
+    const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      console.log(`${doc.id} => ${doc.data()}`);
+    });
   } catch (e) {
     console.error("Error adding document: ", e);
   }
-  const querySnapshot = await getDocs(collection(db, "users"));
-  querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
-  });
+})();
 
   export async function getUserRole(email: string) {
     try {
-      const querySnapshot = await getDocs(collection(db, "users"));
+      const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(collection(db, "users"));
       const userDoc = querySnapshot.docs.find((doc) => doc.data().email === email);
-      
+    
       if (userDoc) {
         return userDoc.data().role;
       }
