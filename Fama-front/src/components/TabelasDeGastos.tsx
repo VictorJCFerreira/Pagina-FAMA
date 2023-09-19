@@ -3,8 +3,8 @@ import { IonCol,
 IonGrid,
 IonRow,
 IonFab, 
-IonFabButton, 
-IonIcon ,
+IonLabel, 
+IonItem ,
 IonModal, 
 IonButton,
 IonInput,
@@ -143,43 +143,89 @@ function TabelaGastosEfetuados() {
 }
 export default TabelaGastosEfetuados;
 
+
+
 function TabelaGastosPendentes() {
+  
   const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
   
   const [TabelaGastosPendentes, setGastosPendentes] = useState([
     { tipoDeGasto: "", descricao: "", valor: 0 },
   ]);
+
+  
+  const [valor1, setValor1] = useState(""); // Estado para o primeiro valor
+  const [valor2, setValor2] = useState(""); // Estado para o segundo valor
+  const [valorResultado, setValorResultado] = useState(""); // Estado para o segundo valor
   DadoObra()
-    .then((obrasData) => {
-      setGastosPendentes(obrasData[0].orçamento.gastosPendentes);
-    })
-    .catch((error) => {
-      console.error('Erro ao obter dados das obras:', error);
-    });
+  .then((obrasData) => {
+    setGastosPendentes(obrasData[0].orçamento.gastosPendentes);
+  })
+  .catch((error) => {
+    console.error('Erro ao obter dados das obras:', error);
+  });
 
-
+  const tiposDeGasto =  [
+    "Pedreiro",
+    "Material",
+  ];
+    
+  // Aqui o Json  ImportantList será usado
   const [tipoDeGastoSelecionado, setTipoDeGastoSelecionado] = useState(""); // Estado para armazenar a situação digitada
 
   function handleAbrirModalAdicionarPendente() {
     setMostrarModalAdicionarPendente(true);
   }
 
+  // Função para verificar se todas as entradas estão preenchidas
+  const verificarEntradasPreenchidas = () => {
+    return tipoDeGastoSelecionado !== "" && valor1 !== "" && valor2 !== "";
+  }
+
+  
+
   const handleFecharModalAdicionarPendente = () => {
     setMostrarModalAdicionarPendente(false);
     setTipoDeGastoSelecionado("");
+    setValor1("")
+    setValor2("") 
   }
-
+  
   const handleConfirmarNovoTipo = () => {
-    // Lógica para processar o tipo de gasto aqui 
-    // Usar função de alterarSituação que está no js
-    // Provavelmente essa parte irá sofrer bastantes alterações
+    if (verificarEntradasPreenchidas()) {
+      // Lógica para processar o tipo de gasto aqui 
+      // Usar função de mudar situação que está no js
+      // Provavelmente essa parte irá sofrer bastantes alterações
+      
+      setMostrarModalAdicionarPendente(false);
     
-    setMostrarModalAdicionarPendente(false);
-    if (tipoDeGastoSelecionado != ""){
-      console.log("Tipo de gasto: " , tipoDeGastoSelecionado);
+      console.log("Tipo de gasto: " , tipoDeGastoSelecionado, valor1 , valor2);
+      
+
+
+      // verifica se o tipo é material
+      const materialSelecionado = tipoDeGastoSelecionado === "Material";
+
+
+      // aqui valorTotal vai receber um resultado dependendo da informação escolhida
+      if(materialSelecionado){
+        //fazer o que precisa caso seja Material
+      } else {
+        //fazer o que precisa caso não seja Material (valor2 está anexado como -1 , apenas trabalhe com valor1 como valorTotal)
+      }
+
+      // Restaure os campos para seus valores iniciais
       setTipoDeGastoSelecionado("");
+      setValor1("");
+      setValor2("");
+
+      
+    } else {
+      // Caso alguma entrada não esteja preenchida, você pode mostrar uma mensagem de erro ou alerta aqui
+      console.log("Por favor, preencha todas as entradas.");
     }
   }
+  
 
 
   return (
@@ -217,11 +263,59 @@ function TabelaGastosPendentes() {
           setTipoDeGastoSelecionado(e.detail.value);
         }}
         >
-        <IonSelectOption value="Pedreiro">Pedreiro</IonSelectOption>
-        <IonSelectOption value="Material">Material</IonSelectOption>
+        {tiposDeGasto.map((tipo) => (
+          <IonSelectOption key={tipo} value={tipo}>
+            {tipo}
+          </IonSelectOption>
+        ))}
         
       {/* Adicione mais opções conforme necessário */}
       </IonSelect>
+      <div style={{ margin: '1%' }}></div>
+
+    {/* Adicione o rótulo para o campo de valor */}
+
+    
+    {/* Condicionalmente renderize um único campo de entrada com base no tipo de gasto */}
+    {tipoDeGastoSelecionado === "Material" ?(
+      <div>
+        <IonLabel position="floating"></IonLabel>
+        <IonInput
+          className="custom-select"
+          placeholder="Preço por m^2/m^3"
+          type="number" 
+          value={valor1}
+          onIonChange={(e : any) => {
+            setValor1(e.detail.value);
+          }}
+        />
+        
+        <IonLabel position="floating"></IonLabel>
+        <IonInput
+          className="custom-select"
+          placeholder="quantidade m^2/m^3"
+          type="number" 
+          value = {valor2}
+          onIonChange={(e : any) => {
+            setValor2(e.detail.value);
+          }} 
+        />
+      </div>
+    ) : (
+      <div>
+        <IonLabel position="floating"></IonLabel>
+        <IonInput
+          className="custom-select"
+          placeholder="Digite o valor"
+          type="number" 
+          value={valor1}
+          onIonChange={(e : any) => {
+            setValor1(e.detail.value);
+            setValor2("-1");
+          }}
+        />
+      </div>
+    )}
       
       <IonButton onClick={handleConfirmarNovoTipo}>Confirmar</IonButton>
       <IonButton onClick={handleFecharModalAdicionarPendente}>Fechar</IonButton>

@@ -207,6 +207,13 @@ function alterarSituação(index, situacaonova){
   });
 }
 
+
+//caso o tipoDeGasto seja Material a api vai ter q pegar o precoMetroQuadradoOucubico e quantidade 
+//resgatar o valor no qual a função faz a conta , e jogar esse valor na função de adicionar gasto Pendente
+function casoGastoMaterial(precoMetroQuadradoOuCubico, quantidade){
+  return valor = precoMetroQuadradoOuCubico * quantidade;
+}
+
 function novoGastoPendente(tipoDeGasto, descricao , valor){
   fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
     if (err) {
@@ -215,7 +222,8 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
     }
     
     const jsonObject = JSON.parse(jsonContent);
-   
+
+
     const novoGastoPendente = {
       tipoDeGasto: tipoDeGasto,
       descricao: descricao,
@@ -230,7 +238,7 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
   });
 } 
 
-novoGastoPendente("Material" , "tijolo 4" , 30)
+
 
 module.exports = {
   verificaDias,
