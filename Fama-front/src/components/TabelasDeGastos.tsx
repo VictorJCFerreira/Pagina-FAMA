@@ -15,6 +15,7 @@ import axios from "axios";
 
 const url = "http://localhost:9000/obras/api"
 
+
 async function DadoObra() {
   try {
     const response = await axios.get(url);
@@ -25,7 +26,6 @@ async function DadoObra() {
     
   }
 }
-
 
 
 function TabelaGastosEfetuados() {
@@ -39,9 +39,16 @@ function TabelaGastosEfetuados() {
   const [situação, setSituação] = useState(""); // Estado para armazenar a situação digitada
 
   const [gastosEfetuados, setGastosEfetuados] = useState([
-    { tipoDeGasto: "Pedreiro", descricao: "Mestre de obras", valor: 20, situacao: "Confirmado" },
-    { tipoDeGasto: "Material", descricao: "Tijolo 1", valor: 5, situacao: "Confirmado" }
+    { tipoDeGasto: "", descricao: "", valor: 0, situacao: "" },
   ]); //mudar aqui para o arquivo json
+    DadoObra()
+      .then((obrasData) => {
+        setGastosEfetuados(obrasData[0].orçamento.gastosEfetuados);
+      })
+      .catch((error) => {
+        console.error('Erro ao obter dados das obras:', error);
+      });
+
 
   function abrirModal() {
     setMostrarModal(true);
@@ -139,10 +146,17 @@ export default TabelaGastosEfetuados;
 function TabelaGastosPendentes() {
   const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
   
-  const [TabelaGastosPendentes, setGastosEfetuados] = useState([
-    { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
-    { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
+  const [TabelaGastosPendentes, setGastosPendentes] = useState([
+    { tipoDeGasto: "", descricao: "", valor: 0 },
   ]);
+  DadoObra()
+    .then((obrasData) => {
+      setGastosPendentes(obrasData[0].orçamento.gastosPendentes);
+    })
+    .catch((error) => {
+      console.error('Erro ao obter dados das obras:', error);
+    });
+
 
   const [tipoDeGastoSelecionado, setTipoDeGastoSelecionado] = useState(""); // Estado para armazenar a situação digitada
 
@@ -224,10 +238,16 @@ export { TabelaGastosPendentes };
 
 function TabelaGastosPendentesComBotao() {
   //substituir essas variaveis pelas que estão no json
-  const [TabelaGastosPendentes, setGastosEfetuados] = useState([
-    { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
-    { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 } 
+  const [TabelaGastosPendentes, setTabelaGastosPendentes] = useState([
+    { tipoDeGasto: "", descricao: "", valor: 0 }, 
   ]);
+  DadoObra()
+    .then((obrasData) => {
+      setTabelaGastosPendentes(obrasData[0].orçamento.gastosPendentes);
+    })
+    .catch((error) => {
+      console.error('Erro ao obter dados das obras:', error);
+    });
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [situação, setSituação] = useState(""); // Estado para armazenar a situação digitada
