@@ -3,7 +3,6 @@ const fs = require('fs')
 const app = express() 
 const cors = require('cors')
 
-
 const port = 9000
 
 app.use(cors())
@@ -15,7 +14,7 @@ app.get('/obras/api', function (req, res) {
     fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
         if (err) {
           console.error('Erro:', err);
-          return;
+          return res.status(500).json({ error: 'Erro ao escrever o arquivo JSON' });
         }
         const jsonObject = JSON.parse(jsonContent);
 
@@ -24,40 +23,51 @@ app.get('/obras/api', function (req, res) {
     })
 });
 
+app.post('/obras/api', (req, res) => {
+    const dadosRecebidos = req.body; // Dados JSON enviados no corpo da solicitação
+  
+    
+    fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+        if (err) {
+          console.error('Erro:', err);
+          return res.status(500).json({ error: 'Erro ao escrever o arquivo JSON' });
+        }
+      try {
+        const jsonObject = JSON.parse(jsonContent);
+  
+        // Atualiza o objeto com os dados recebidos
+        // Por exemplo, você pode copiar os dados recebidos para o objeto existente
+        Object.assign(jsonObject[0], dadosRecebidos);
+  
+        // Escreve o objeto atualizado de volta no arquivo JSON
+        fs.writeFile(caminhoArquivo, JSON.stringify(jsonObject, null, 2), (writeErr) => {
+          if (writeErr) {
+            console.error('Erro:', writeErr);
+            return res.status(500).json({ error: 'Erro ao escrever o arquivo JSON' });
+          }
+  
+          res.json({ message: 'Dados atualizados com sucesso' });
+        });
+      } catch (parseError) {
+        console.error('Erro ao analisar o JSON:', parseError);
+        return res.status(500).json({ error: 'Erro ao analisar o JSON' });
+      }
+    });
+  });
 
-let obras = [{
-    id:0,
-    nomeObra: "Shopping Funico",
-    responsavel: "João Teste",
-    local: "Piedade, Rua Algusta de Freitas ,262",
-}]
 
-/*app.get('/obras/api', (req, res) => res.json({
-    obras
-}))*/
-
-app.get('/obras/api/:id', (req, res) => {
-    const obrasId = req.params.id
-
-    const obra = obras.find(obra => Number(obra.id) === Number(obrasId))
-
-    if(!obra){
-        return res.json("Obra nao encontrada")
-    }
-
-    res.json(obra)
-})
 
 app.post('/obras/api', (req, res) => {
-    const lastId = obras[obras.length - 1].id
     obras.push({
-        id: lastId + 1,
         nomeObra: req.body.nomeObra,
         responsavel: req.body.responsavel,
         local: req.body.local,
     })
     res.json("Obra salva")
 })
+
+
+
 
 app.put('/obras/api/:id', (req, res) => {
     const obrasId = req.params.id
@@ -85,6 +95,8 @@ app.put('/obras/api/:id', (req, res) => {
     res.json("Obra atualizada")
 })
 
+
+
 app.delete('/obras/api/:id', (req, res) =>{
     const obrasId = req.params.id
 
@@ -92,6 +104,8 @@ app.delete('/obras/api/:id', (req, res) =>{
 
     res.json("Obra deletada")
 })
+
+
 
 app.listen(port, ()=>{
     console.log(`http://localhost:${port}/obras/api`)
