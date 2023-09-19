@@ -19,7 +19,7 @@ app.get('/obras/api', function (req, res) {
         }
         const jsonObject = JSON.parse(jsonContent);
 
-        res.json(jsonObject[0]);
+        res.json(jsonObject);
         
     })
 });

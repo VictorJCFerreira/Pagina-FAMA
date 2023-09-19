@@ -15,26 +15,20 @@ import axios from "axios";
 
 const url = "http://localhost:9000/obras/api"
 
-function DadoObra() {
-  const [obrasData, setObrasData] = useState(null);
-
-  useEffect(() => {
-    axios.get(url)
-      .then((response) => {
-        setObrasData(response.data);
-        return obrasData;
-      })
-      .catch((error) => {
-        console.error('Erro ao obter dados das obras:', error);
-      });
-      console.log(obrasData)
-  },[]);
+async function DadoObra() {
+  try {
+    const response = await axios.get(url);
+    return response.data;
+  } catch (error) {
+    throw error;
+    ;
+    
+  }
 }
 
 
 
 function TabelaGastosEfetuados() {
-  console.log(DadoObra())
 
   const [mostrarModal, setMostrarModal] = useState(false);
   
@@ -68,7 +62,6 @@ function TabelaGastosEfetuados() {
   }
   
   const handleConfirmarSituaçãoNova = () => {
-    
     if (indiceClicado !== null) {
       // Lógica para processar a situação aqui usando o índice
       // Usar função de mudar situação que está no js
