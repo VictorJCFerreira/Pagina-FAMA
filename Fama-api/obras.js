@@ -4,65 +4,6 @@ import axios from "axios";
 
 const url = "http://localhost:9000/obras/api"
 
-
-function getObras(){
-  axios.get(url)
-  .then(response =>{
-    const dados = response.data
-  console.log(dados)
-  })
-  .catch(error => console.log(error))
-};
-
-
-function getObra(){
-  axios.get(`${url}/id`)
-  .then(response =>{
-    const dados = response.data
-    Result.textContent = JSON.stringify(dados)
-  })
-  .catch(error => console.log(error))
-};
-
-
-function addNewObra(){
-  axios.post(url, {
-    nomeObra: "Edificio Nice",
-    responsavel: "José Teste",
-    local: "Boa Viagem, Rua X, Y°",
-  })
-  .then(response =>{
-    console.log(response.data)
-  })
-  .catch(error => console.log(error))
-};
-
-
-function updateObra(){
-  axios.put(`${url}/:id`, {
-    nomeObra: "ExNome",
-    responsavel: "ExResp",
-    local: "Exlocal",
-  })
-  .then(response =>{
-    const dados = response.data
-    alert(JSON.stringify(dados))
-  })
-  .catch(error => console.log(error))
-};
-
-
-function deleteObra(){
-  axios.delete(`${url}/:id`)
-  .then(response =>{
-    const dados = response.data
-    alert(JSON.stringify(dados))
-  })
-  .catch(error => console.log(error))
-};
-
-
-
 //por enquanto só está analisando[0]
 
 const caminhoArquivo = './obras.json';
