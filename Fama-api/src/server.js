@@ -7,7 +7,7 @@ const port = 9000
 
 app.use(cors())
 
-const caminhoArquivo = './obras.json';
+const caminhoArquivo = '../obras.json';
 
 
 app.get('/obras/api', function (req, res) {

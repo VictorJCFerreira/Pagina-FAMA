@@ -22,8 +22,6 @@ async function DadoObra() {
     return response.data;
   } catch (error) {
     throw error;
-    ;
-    
   }
 }
 
@@ -40,7 +38,7 @@ function TabelaGastosEfetuados() {
 
   const [gastosEfetuados, setGastosEfetuados] = useState([
     { tipoDeGasto: "", descricao: "", valor: 0, situacao: "" },
-  ]); //mudar aqui para o arquivo json
+  ])
     DadoObra()
       .then((obrasData) => {
         setGastosEfetuados(obrasData[0].orçamento.gastosEfetuados);
@@ -335,12 +333,13 @@ function TabelaGastosPendentesComBotao() {
   const [TabelaGastosPendentes, setTabelaGastosPendentes] = useState([
     { tipoDeGasto: "", descricao: "", valor: 0 }, 
   ]);
+  
   DadoObra()
     .then((obrasData) => {
       setTabelaGastosPendentes(obrasData[0].orçamento.gastosPendentes);
     })
     .catch((error) => {
-      console.error('Erro ao obter dados das obras:', error);
+      console.error('Erro ao obter dados das obras:',error);
     });
 
   const [mostrarModal, setMostrarModal] = useState(false);
