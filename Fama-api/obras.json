@@ -31,6 +31,12 @@
           "descricao": "Tijolo 1",
           "valor": 5,
           "situacao": "Entregue"
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "tijolo 5",
+          "valor": 30,
+          "situacao" : "Entregue"
         }
       ],
       "somaGastosEfetuados": 25,
@@ -44,11 +50,6 @@
           "tipoDeGasto": "Material",
           "descricao": "Tijolo 3",
           "valor": 12
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "tijolo 4",
-          "valor": 30
         },
         {
           "tipoDeGasto": "Material",
