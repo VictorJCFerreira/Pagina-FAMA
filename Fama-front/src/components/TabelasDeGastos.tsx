@@ -117,13 +117,24 @@ function TabelaGastosEfetuados() {
 }
 export default TabelaGastosEfetuados;
 
+
+
 function TabelaGastosPendentes() {
-  const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
   
+  const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
+  const [habilitarConfirmar, setHabilitarConfirmar] = useState(false); // Estado para habilitar/desabilitar o botão Confirmar
+
+
+
   const [TabelaGastosPendentes, setGastosEfetuados] = useState([
     { tipoDeGasto: "Material", descricao: "Tijolo 2", valor: 5 },
     { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
   ]);
+
+  //isso caso seja Material o tipo de gasto
+  const [valor1, setValor1] = useState(""); // Estado para o primeiro valor
+  const [valor2, setValor2] = useState(""); // Estado para o segundo valor
+
 
   const tiposDeGasto =  [
     "Pedreiro",
@@ -137,21 +148,48 @@ function TabelaGastosPendentes() {
     setMostrarModalAdicionarPendente(true);
   }
 
-  const handleFecharModalAdicionarPendente = () => {
-    setMostrarModalAdicionarPendente(false);
-    setTipoDeGastoSelecionado("");
+  // Função para verificar se todas as entradas estão preenchidas
+  const verificarEntradasPreenchidas = () => {
+    return tipoDeGastoSelecionado !== "" && valor1 !== "" && valor2 !== "";
   }
 
-  const handleConfirmarNovoTipo = () => {
-    // Lógica para processar o tipo de gasto aqui 
-    // Usar função de mudar situação que está no js
-    // Provavelmente essa parte irá sofrer bastantes alterações
+  const handleFecharModalAdicionarPendente = () => {
     
     setMostrarModalAdicionarPendente(false);
-    if (tipoDeGastoSelecionado != ""){
-      console.log("Tipo de gasto: " , tipoDeGastoSelecionado);
+    setTipoDeGastoSelecionado("");
+    setValor1("")
+    setValor2("") 
+  }
+  
+  const handleConfirmarNovoTipo = () => {
+
+    if (verificarEntradasPreenchidas()) {
+      // Lógica para processar o tipo de gasto aqui 
+      // Usar função de mudar situação que está no js
+      // Provavelmente essa parte irá sofrer bastantes alterações
+      
+      setMostrarModalAdicionarPendente(false);
+    
+      console.log("Tipo de gasto: " , tipoDeGastoSelecionado, valor1 , valor2);
+      
+      // Restaure os campos para seus valores iniciais
       setTipoDeGastoSelecionado("");
+      setValor1("");
+      setValor2("");
+      // Desabilite o botão Confirmar
+      setHabilitarConfirmar(false);
+
+      
+    } else {
+      // Caso alguma entrada não esteja preenchida, você pode mostrar uma mensagem de erro ou alerta aqui
+      console.log("Por favor, preencha todas as entradas.");
     }
+  }
+  
+  
+  // Função para atualizar o estado habilitarConfirmar com base nas entradas
+  const atualizarHabilitarConfirmar = () => {
+    setHabilitarConfirmar(verificarEntradasPreenchidas());
   }
 
 
@@ -188,6 +226,7 @@ function TabelaGastosPendentes() {
         value={tipoDeGastoSelecionado}
         onIonChange={(e) => {
           setTipoDeGastoSelecionado(e.detail.value);
+          atualizarHabilitarConfirmar();
         }}
         >
         {tiposDeGasto.map((tipo) => (
@@ -198,16 +237,35 @@ function TabelaGastosPendentes() {
         
       {/* Adicione mais opções conforme necessário */}
       </IonSelect>
-
+      <div style={{ margin: '1%' }}></div>
 
       {/* Adicione o rótulo para o campo de valor */}
-    <IonLabel position="floating">Valor:</IonLabel>
+
+    
+    {/* Campo para o primeiro valor */}
+    <IonLabel position="floating">Valor 1</IonLabel>
     <IonInput
-      type="number" /* Pode usar "text" se desejar permitir qualquer entrada de texto */
-      /* value={valorDigitado}
-      onIonChange={(e) => {
-      setValorDigitado(e.detail.value);
-      }} */
+      className="custom-select"
+      placeholder="Preço por m^2/m^3"
+      type="number" 
+      value={valor1}
+      onIonChange={(e : any) => {
+        setValor1(e.detail.value);
+        atualizarHabilitarConfirmar();
+      }}
+    />
+    
+    {/* Campo para o segundo valor */}
+    <IonLabel position="floating">Valor 2</IonLabel>
+    <IonInput
+      className="custom-select"
+      placeholder="quantidade"
+      type="number" 
+      value={valor2}
+      onIonChange={(e : any) => {
+        setValor2(e.detail.value);
+        atualizarHabilitarConfirmar();
+      }} 
     />
       
       <IonButton onClick={handleConfirmarNovoTipo}>Confirmar</IonButton>
