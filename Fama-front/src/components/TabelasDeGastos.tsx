@@ -3,8 +3,8 @@ import { IonCol,
 IonGrid,
 IonRow,
 IonFab, 
-IonFabButton, 
-IonIcon ,
+IonLabel, 
+IonItem ,
 IonModal, 
 IonButton,
 IonInput,
@@ -125,6 +125,12 @@ function TabelaGastosPendentes() {
     { tipoDeGasto: "Material", descricao: "Tijolo 3", valor: 12 }
   ]);
 
+  const tiposDeGasto =  [
+    "Pedreiro",
+    "Material",
+  ];
+    
+  // Aqui o Json  ImportantList será usado
   const [tipoDeGastoSelecionado, setTipoDeGastoSelecionado] = useState(""); // Estado para armazenar a situação digitada
 
   function handleAbrirModalAdicionarPendente() {
@@ -184,11 +190,25 @@ function TabelaGastosPendentes() {
           setTipoDeGastoSelecionado(e.detail.value);
         }}
         >
-        <IonSelectOption value="Pedreiro">Pedreiro</IonSelectOption>
-        <IonSelectOption value="Material">Material</IonSelectOption>
+        {tiposDeGasto.map((tipo) => (
+          <IonSelectOption key={tipo} value={tipo}>
+            {tipo}
+          </IonSelectOption>
+        ))}
         
       {/* Adicione mais opções conforme necessário */}
       </IonSelect>
+
+
+      {/* Adicione o rótulo para o campo de valor */}
+    <IonLabel position="floating">Valor:</IonLabel>
+    <IonInput
+      type="number" /* Pode usar "text" se desejar permitir qualquer entrada de texto */
+      /* value={valorDigitado}
+      onIonChange={(e) => {
+      setValorDigitado(e.detail.value);
+      }} */
+    />
       
       <IonButton onClick={handleConfirmarNovoTipo}>Confirmar</IonButton>
       <IonButton onClick={handleFecharModalAdicionarPendente}>Fechar</IonButton>
