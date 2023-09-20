@@ -1,13 +1,8 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar ,IonInput} from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
 import './visaogeral.css';
 import ListadeObras from '../components/ListadeObras';
-import { IonCol, IonGrid, IonRow } from '@ionic/react';
+import React, { useState } from 'react';
 
-
-function AddObra(){
-
-}
 
 const Visaogeral: React.FC = () => {
     return (
@@ -24,7 +19,7 @@ const Visaogeral: React.FC = () => {
             </IonToolbar>
           </IonHeader>
           <ListadeObras />
-          <IonButton size="default" onClick={AddObra}>Adicionar Obra</IonButton>
+          <IonButton size="default" routerLink='/adicionarobra'>Adicionar Obra</IonButton>
         </IonContent>
       </IonPage>
     );

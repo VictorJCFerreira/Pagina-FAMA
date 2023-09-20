@@ -4,6 +4,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import Obra from './pages/Obra';
 import Visaogeral from './pages/visaogeral';
+import AdicionarObra from './pages/AdicionarObra';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -25,6 +26,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+
 setupIonicReact();
 
 const App: React.FC = () => (
@@ -42,6 +44,9 @@ const App: React.FC = () => (
         </Route>
         <Route exact path="/visaogeral">
         <Visaogeral />
+        </Route>
+        <Route exact path="/adicionarobra">
+        <AdicionarObra />
         </Route>
     
       </IonRouterOutlet>
