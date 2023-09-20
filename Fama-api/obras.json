@@ -56,5 +56,32 @@
       "projecaoDeGastos": 42,
       "projecaoDeCredito": 58
     }
+  },
+  {
+    "nomeObra": "Nova luz",
+    "responsavel": "fulano",
+    "local": "Recife",
+    "datas": {
+      "dataDeInicio": {
+        "dia": 20,
+        "mes": 10,
+        "ano": 2023
+      },
+      "dataDeEntrega": {
+        "dia": 20,
+        "mes": 11,
+        "ano": 2023
+      }
+    },
+    "orçamento": {
+      "valorPagoObra": 10000,
+      "gastosEfetuados": [],
+      "somaGastosEfetuados": 0,
+      "gastosPendentes": [],
+      "somaGastosPendentes": 0,
+      "credito": 0,
+      "projecaoDeGastos": 0,
+      "projecaoDeCredito": 0
+    }
   }
 ]

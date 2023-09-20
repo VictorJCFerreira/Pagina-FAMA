@@ -169,7 +169,54 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
   });
 } 
 
-novoGastoPendente("Material" , "tijolo 4" , 30)
+function novaobra(nomeObra, responsavel , local, dataInicioDia,dataInicioMes,dataInicioAno,dataEntregaDia,dataEntregaMes,dataEntregaAno,valorPagoObra){
+  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+    
+    const jsonObject = JSON.parse(jsonContent);
+
+    const dataDeInicio = 
+    {
+      "dia": dataInicioDia,
+      "mes": dataInicioMes,
+      "ano": dataInicioAno
+    }
+
+    const dataDeEntrega = 
+    {
+      "dia": dataEntregaDia,
+      "mes": dataEntregaMes,
+      "ano": dataEntregaAno
+    }
+
+   const novaObra = 
+   {"nomeObra": nomeObra,
+     "responsavel": responsavel,
+     "local": local,
+     "datas": {dataDeInicio,dataDeEntrega},
+     "orçamento":{"valorPagoObra": valorPagoObra,
+     "gastosEfetuados":[],
+     "somaGastosEfetuados": 0,
+    "gastosPendentes":[],
+    "somaGastosPendentes":0,
+    "credito": 0,
+    "projecaoDeGastos": 0,
+    "projecaoDeCredito": 0}
+
+  }
+
+    jsonObject.push(novaObra)
+    
+    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+
+  });
+} 
+
+
+novaobra("Nova luz","fulano","Recife",20,10,2023,20,11,2023,10000 )
 
 
 
