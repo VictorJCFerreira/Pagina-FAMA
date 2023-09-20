@@ -18,69 +18,14 @@
       "diasAtrasados": 28
     },
     "orçamento": {
-      "valorPagoObra": 100,
-      "gastosEfetuados": [
-        {
-          "tipoDeGasto": "Pedreiro",
-          "descricao": "Mestre de obras",
-          "valor": 20,
-          "situacao": "Entregue"
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "Tijolo 1",
-          "valor": 5,
-          "situacao": "Entregue"
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "tijolo 5",
-          "valor": 30,
-          "situacao": "Entregue"
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "Ferro fundido",
-          "valor": 130,
-          "situacao": "Entregue"
-        },
-        {
-          "tipoDeGasto": "Equipamentos e Ferramentas",
-          "descricao": "Broca",
-          "valor": "443.00",
-          "situacao": "Comprado"
-        },
-        {
-          "tipoDeGasto": "Licenças e Permissões",
-          "descricao": "Licença teste",
-          "valor": "244.70",
-          "situacao": "Comprada"
-        }
-      ],
-      "somaGastosEfetuados": 25,
-      "gastosPendentes": [
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "Tijolo 2",
-          "valor": 5,
-          "situacao": "Entregue"
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "Tijolo 3",
-          "valor": 12,
-          "situacao": "Baduga"
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "tijolo 4",
-          "valor": 30
-        }
-      ],
-      "somaGastosPendentes": 17,
-      "credito": 75,
-      "projecaoDeGastos": 42,
-      "projecaoDeCredito": 58
+      "valorPagoObra": 1000,
+      "gastosEfetuados": [],
+      "somaGastosEfetuados": 0,
+      "gastosPendentes": [],
+      "somaGastosPendentes": 0,
+      "credito": 0,
+      "projecaoDeGastos": 0,
+      "projecaoDeCredito": 0
     }
   }
 ]

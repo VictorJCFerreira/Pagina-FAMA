@@ -58,50 +58,56 @@ function verificaDias()
 
 //calcula: crédito , situação de lucro , projeção de gastos
 function orçamentoCalculo(){
-fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
-  if (err) {
-    console.error('Erro:', err);
-    return;
+  fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+    const jsonObject = JSON.parse(jsonContent);
+    
+    var somaGastosEfetuados = 0;
+    if(jsonObject[0].orçamento.gastosEfetuados){
+      const gastosEfetuados = jsonObject[0].orçamento.gastosEfetuados;
+      
+      for(gasto of gastosEfetuados){
+        somaGastosEfetuados += parseFloat(gasto.valor)
+      }
+    }
+    var somaGastosPendentes = 0;
+    if(jsonObject[0].orçamento.gastosPendentes) {
+      const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
+      for(gasto of gastosPendentes){
+        somaGastosPendentes += parseFloat(gasto.valor)
+      }
+    }
+    
+  
+    jsonObject[0].orçamento.somaGastosEfetuados = somaGastosEfetuados.toFixed(2);
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  
+    
+  
+    jsonObject[0].orçamento.somaGastosPendentes = somaGastosPendentes.toFixed(2);
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  
+    /* valorPagoObra = parseFloat(jsonObject[0].orçamento.valorPagoObra);
+    credito = valorPagoObra - somaGastosEfetuados;
+  
+  
+    jsonObject[0].orçamento.credito = credito.toFixed(2);
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  
+    const projecaoDeGastos = somaGastosEfetuados + somaGastosPendentes
+    jsonObject[0].orçamento.projecaoDeGastos = projecaoDeGastos.toFixed(2)
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  
+    const projecaoDeCredito = credito - somaGastosPendentes
+    jsonObject[0].orçamento.projecaoDeCredito = projecaoDeCredito.toFixed(2)
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8'); */
+  
+  
+  });
   }
-  const jsonObject = JSON.parse(jsonContent);
-
-  const gastosEfetuados = jsonObject[0].orçamento.gastosEfetuados;
-  const gastosPendentes = jsonObject[0].orçamento.gastosPendentes;
-
-  var somaGastosEfetuados = 0;
-  for(gasto of gastosEfetuados){
-    somaGastosEfetuados += gasto.valor
-  }
-
-  jsonObject[0].orçamento.somaGastosEfetuados = somaGastosEfetuados;
-  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
-
-  var somaGastosPendentes = 0;
-  for(gasto of gastosPendentes){
-    somaGastosPendentes += gasto.valor
-  }
-
-  jsonObject[0].orçamento.somaGastosPendentes = somaGastosPendentes;
-  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
-
-  valorPagoObra = jsonObject[0].orçamento.valorPagoObra;
-  credito = valorPagoObra - somaGastosEfetuados;
-
-
-  jsonObject[0].orçamento.credito = credito;
-  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
-
-  const projecaoDeGastos = somaGastosEfetuados + somaGastosPendentes
-  jsonObject[0].orçamento.projecaoDeGastos = projecaoDeGastos
-  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
-
-  const projecaoDeCredito = credito - somaGastosPendentes
-  jsonObject[0].orçamento.projecaoDeCredito = projecaoDeCredito
-  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
-
-
-});
-}
 
 
 function efetuarGasto(numero , situacao) {
