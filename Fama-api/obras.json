@@ -49,6 +49,12 @@
           "descricao": "Broca",
           "valor": "443.00",
           "situacao": "Comprado"
+        },
+        {
+          "tipoDeGasto": "Licenças e Permissões",
+          "descricao": "Licença teste",
+          "valor": "244.70",
+          "situacao": "Comprada"
         }
       ],
       "somaGastosEfetuados": 25,
@@ -69,11 +75,6 @@
           "tipoDeGasto": "Material",
           "descricao": "tijolo 4",
           "valor": 30
-        },
-        {
-          "tipoDeGasto": "Licenças e Permissões",
-          "descricao": "Licença teste",
-          "valor": "244.70"
         }
       ],
       "somaGastosPendentes": 17,

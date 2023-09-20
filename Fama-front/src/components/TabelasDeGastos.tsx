@@ -99,7 +99,8 @@ function TabelaGastosEfetuados() {
 
 
   return (
-    <IonGrid>
+    <IonGrid >
+      <div className="ion-col1">
       <IonRow>
         <IonCol>Gastos Efetuados</IonCol>
       </IonRow>
@@ -139,11 +140,13 @@ function TabelaGastosEfetuados() {
         <TabelaGastosPendentesComBotao/>
         <IonButton onClick={fecharModal}>Fechar</IonButton>
       </IonModal>
+      </div>
       <div style={{ margin: '5%' }}></div>
 
       <IonModal>
         <div id='Results'></div>
       </IonModal>
+      
     </IonGrid>
     
     
@@ -263,6 +266,7 @@ function TabelaGastosPendentes() {
 
   return (
       <IonGrid>
+        <div className="ion-col1">
         <IonRow>
           <IonCol>Gastos Pendentes</IonCol>
         </IonRow>
@@ -356,6 +360,7 @@ function TabelaGastosPendentes() {
       <IonButton onClick={handleFecharModalAdicionarPendente}>Fechar</IonButton>
       </div>
       </IonModal>
+      </div>
       <div style={{ margin: '5%' }}></div>
 
     </IonGrid>
@@ -425,6 +430,7 @@ function TabelaGastosPendentesComBotao() {
 
   return (
       <IonGrid>
+        <div className="ion-col1">
         <IonRow>
           <IonCol>Gastos Pendentes</IonCol>
         </IonRow>
@@ -457,6 +463,7 @@ function TabelaGastosPendentesComBotao() {
           <IonButton onClick={handleFecharModal}>Cancelar</IonButton>
         </div>
       </IonModal>
+      </div>
       </IonGrid>
     );
 }

@@ -1,6 +1,6 @@
 import './List.css';
 import React, { useState } from 'react';
-import { IonItem, IonLabel, IonList } from '@ionic/react';
+import { IonCol, IonItem, IonLabel, IonList, IonRow } from '@ionic/react';
 
 import axios from "axios";
 
@@ -32,6 +32,12 @@ function List() {
   },);
   const [diasDecorridos , setDiasDecorridos] = useState(0);
   const [diasAtrasdos , setDiasAtrasados] = useState(0);
+  const [valorPagoObra , setValorPagoObra] = useState(0);
+  const [somaGastosEfetuados , setSomaGastosEfetuados] = useState(0);
+  const [somaGastosPendentes , setSomaGastosPendentes] = useState(0);
+  const [credito , setCredito] = useState(0);
+  const [projecaoDeGastos , setProjecaoDeGastos] = useState(0);
+  const [projecaoDeCredito , setProjecaoDeCredito] = useState(0);
 
   DadoObra()
       .then((obrasData) => {
@@ -40,6 +46,12 @@ function List() {
         setDataDeEntrega(obrasData[0].datas.dataDeEntrega);
         setDiasDecorridos(obrasData[0].datas.diasDecorridos);
         setDiasAtrasados(obrasData[0].datas.diasAtrasados);
+        setValorPagoObra(obrasData[0].orçamento.valorPagoObra);
+        setSomaGastosEfetuados(obrasData[0].orçamento.somaGastosEfetuados);
+        setSomaGastosPendentes(obrasData[0].orçamento.somaGastosPendentes);
+        setCredito(obrasData[0].orçamento.credito);
+        setProjecaoDeGastos(obrasData[0].orçamento.projecaoDeGastos);
+        setProjecaoDeCredito(obrasData[0].orçamento.projecaoDeCredito)
       })
       .catch((error) => {
         console.error('Erro ao obter dados das obras:',error);
@@ -47,20 +59,37 @@ function List() {
   return (
     <IonList>
       <IonItem>
-        <IonLabel>{responsavel}</IonLabel>
+        <IonLabel>Responsável: {responsavel}</IonLabel>
       </IonItem>
-       <IonItem>
-        <IonLabel>Data de início: {dataDeInicio.dia}/{dataDeInicio.mes}/{dataDeInicio.ano}</IonLabel>
-      </IonItem> 
-      <IonItem>
-        <IonLabel>Data de Entrega: {dataDeEntrega.dia}/{dataDeEntrega.mes}/{dataDeEntrega.ano}</IonLabel>
-      </IonItem>
-      <IonItem>
-        <IonLabel>Dias decorridos: {diasDecorridos}</IonLabel>
-      </IonItem>
-      <IonItem>
-        <IonLabel>Dias atrasados: {diasAtrasdos}</IonLabel>
-      </IonItem>
+      <IonRow className='ion-col2'>
+        <IonCol className='ion-col2'>Data de Início: {dataDeInicio.dia}/{dataDeInicio.mes}/{dataDeInicio.ano}</IonCol>
+        <IonCol className='ion-col2'>Data de Entrega: {dataDeEntrega.dia}/{dataDeEntrega.mes}/{dataDeEntrega.ano}</IonCol>
+      </IonRow>
+      <div style={{ margin: '0.5%' }}></div>
+      <IonRow className='ion-col2'>
+        <IonCol className='ion-col2'>Dias Decorridos: {diasDecorridos}</IonCol>
+        <IonCol className='ion-col2'>Dias Atrasados: {diasAtrasdos}</IonCol>
+      </IonRow>
+      
+
+      <div style={{ margin: '2%' }}></div>
+      
+
+      <IonRow className='ion-col2'>
+        <IonCol className='ion-col2'>Valor Pago pela Obra: {valorPagoObra}</IonCol>
+        <IonCol className='ion-col2'>Credito: {credito}</IonCol>
+      </IonRow>
+      <div style={{ margin: '0.5%' }}></div>
+
+      <IonRow className='ion-col2'>
+        <IonCol className='ion-col2'>Soma dos Gastos Efetuados: {somaGastosEfetuados}</IonCol>
+        <IonCol className='ion-col2'>Soma dos Gastos Pendentes: {somaGastosPendentes}</IonCol>
+      </IonRow>
+      
+      <IonRow className='ion-col2'>
+        <IonCol className='ion-col2'>Projeção de Gastos: {projecaoDeGastos}</IonCol>
+        <IonCol className='ion-col2'>Projeção de Créditos: {projecaoDeCredito}</IonCol>
+      </IonRow>
     </IonList>
   );
 }
