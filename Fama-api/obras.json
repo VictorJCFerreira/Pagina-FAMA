@@ -36,7 +36,7 @@
           "tipoDeGasto": "Material",
           "descricao": "tijolo 5",
           "valor": 30,
-          "situacao" : "Entregue"
+          "situacao": "Entregue"
         }
       ],
       "somaGastosEfetuados": 25,

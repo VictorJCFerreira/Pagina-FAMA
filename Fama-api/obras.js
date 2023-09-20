@@ -1,6 +1,6 @@
 const fs = require('fs');
 const { json } = require('stream/consumers');
-import axios from "axios";
+
 
 const url = "http://localhost:9000/obras/api"
 
@@ -186,11 +186,6 @@ module.exports = {
   orçamentoCalculo,
   efetuarGasto,
   alterarSituação,
-  novoGastoPendente,
-  getObra,
-  getObras,
-  addNewObra,
-  updateObra,
-  deleteObra,
+  novoGastoPendente
 }
 

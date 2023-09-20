@@ -34,7 +34,7 @@ function TabelaGastosEfetuados() {
 
   const [indiceClicado, setIndiceClicado] = useState<number | null>(null);
   
-  const [situação, setSituação] = useState(""); // Estado para armazenar a situação digitada
+  const [situacao, setSituação] = useState(""); // Estado para armazenar a situação digitada
 
   const [gastosEfetuados, setGastosEfetuados] = useState([
     { tipoDeGasto: "", descricao: "", valor: 0, situacao: "" },
@@ -44,7 +44,7 @@ function TabelaGastosEfetuados() {
         setGastosEfetuados(obrasData[0].orçamento.gastosEfetuados);
       })
       .catch((error) => {
-        console.error('Erro ao obter dados das obras:', error);
+        console.error('Erro ao obter dados das obras:', error);
       });
 
 
@@ -66,16 +66,31 @@ function TabelaGastosEfetuados() {
     setSituação(""); // Limpar o campo de situação ao fechar o modal
   }
   
+  const enviarIndiceParaAPI = (index : number , situacao : any) => {
+    const data = {index, situacao}; // Os dados que você deseja enviar para a API
+  
+    axios.post(url, data)
+      .then((response) => {
+        // Aqui, você pode adicionar logs para a resposta bem-sucedida
+        console.log('Resposta da API recebida:', response.data);
+        // Também pode adicionar qualquer lógica adicional com base na resposta
+      })  
+      .catch((error) => {
+          // Trate erros da API aqui
+          console.error('Erro ao enviar índice para a API:', error);
+        });
+
+  };
+
   const handleConfirmarSituaçãoNova = () => {
     if (indiceClicado !== null) {
-      // Lógica para processar a situação aqui usando o índice
       // Usar função de mudar situação que está no js
-      if (situação == ""){
+      if (situacao == ""){
         setMostrarModalEditarSituacao(false);
       }
       else{
-        console.log("Situação digitada para o índice:", indiceClicado, situação);
-        // Lógica para processar a situação
+        console.log("Situação digitada para o índice:", indiceClicado, situacao);
+        enviarIndiceParaAPI(indiceClicado, situacao);
         setMostrarModalEditarSituacao(false); // Feche o modal após confirmar a situação
         setSituação("");
         setIndiceClicado(null); // Limpe o índice clicado
@@ -108,7 +123,6 @@ function TabelaGastosEfetuados() {
         <div className="modal-content">
           <IonInput
             placeholder="Digite nova situação"
-            value={situação}
             onIonChange={(e) => setSituação(e.detail.value!)}
             className="custom-input"
           />
