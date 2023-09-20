@@ -170,6 +170,11 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
 } 
 
 function novaobra(nomeObra, responsavel , local, dataInicioDia,dataInicioMes,dataInicioAno,dataEntregaDia,dataEntregaMes,dataEntregaAno,valorPagoObra){
+  
+  if(novaObra()){
+    jsonObject.check = 0
+  }
+  
   fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);
@@ -193,6 +198,7 @@ function novaobra(nomeObra, responsavel , local, dataInicioDia,dataInicioMes,dat
     }
 
    const novaObra = 
+   
    {"nomeObra": nomeObra,
      "responsavel": responsavel,
      "local": local,
@@ -206,18 +212,54 @@ function novaobra(nomeObra, responsavel , local, dataInicioDia,dataInicioMes,dat
     "somaGastosPendentes":0,
     "credito": 0,
     "projecaoDeGastos": 0,
-    "projecaoDeCredito": 0}
-
+    "projecaoDeCredito": 0,
+    "check": 1
+  }
   }
 
     jsonObject.push(novaObra)
     
     fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
-  });
+  
+  })
+  QtdObras();
 } 
 
+function QtdObras(){
+  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+    
+    const jsonObject = JSON.parse(jsonContent);
+  
+})
+  var QtdObras=0;
+  while(jsonObject.check != 1){
+    QtdObras++
+  }
 
+}
 
+function ObrasAtrasadas(){
+  var QtdObrasAtrasadas=0;
+  var validar = 0;
+  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+    if (err) {
+      console.error('Erro:', err);
+      return;
+    }
+    
+    const jsonObject = JSON.parse(jsonContent);
+  
+})
+while(jsonObject.check != 1){
+if(jsonObject.diasAtrasados>0){
+  QtdObrasAtrasadas++
+}}
 
+return QtdObrasAtrasadas;
+}
 

@@ -9,19 +9,19 @@ function ListadeObras() {
     <IonList>
        
         <IonItem>
-            <IonLabel>Obra 1<IonButton size= "small" routerLink='/obra' >+</IonButton></IonLabel>
+            <IonLabel>Shopping Funico<IonButton size= "small" routerLink='/obra' >←</IonButton></IonLabel>
         </IonItem>
         <IonItem>
-            <IonLabel>Obra 2<IonButton size= "small" >+</IonButton></IonLabel>
+            <IonLabel>Obra 2<IonButton size= "small" >←</IonButton></IonLabel>
         </IonItem>
         <IonItem>
-            <IonLabel>Obra 3<IonButton size= "small" >+</IonButton></IonLabel>
+            <IonLabel>Obra 3<IonButton size= "small" >←</IonButton></IonLabel>
         </IonItem>
         <IonItem>
-            <IonLabel>Obra 4<IonButton size= "small" >+</IonButton></IonLabel>
+            <IonLabel>Obra 4<IonButton size= "small" >←</IonButton></IonLabel>
         </IonItem>
         <IonItem>
-            <IonLabel>Obra 5<IonButton size= "small" >+</IonButton></IonLabel>
+            <IonLabel>Obra 5<IonButton size= "small" >←</IonButton></IonLabel>
         </IonItem>
         
     </IonList>
