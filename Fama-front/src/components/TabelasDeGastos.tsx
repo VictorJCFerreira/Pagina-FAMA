@@ -167,6 +167,7 @@ function TabelaGastosPendentes() {
   
   const [valor1, setValor1] = useState(""); // Estado para o primeiro valor
   const [valor2, setValor2] = useState(""); // Estado para o segundo valor
+  const [situacao, setSituacao] = useState("") // estado para situaçao
   const [valorResultado, setValorResultado] = useState(""); // Estado para o segundo valor
   DadoObra()
   .then((obrasData) => {
@@ -190,7 +191,7 @@ function TabelaGastosPendentes() {
 
   // Função para verificar se todas as entradas estão preenchidas
   const verificarEntradasPreenchidas = () => {
-    return tipoDeGastoSelecionado !== "" && valor1 !== "" && valor2 !== "";
+    return tipoDeGastoSelecionado !== "" && valor1 !== "" && valor2 !== "" && situacao !== "";
   }
 
   
@@ -210,7 +211,7 @@ function TabelaGastosPendentes() {
       
       setMostrarModalAdicionarPendente(false);
     
-      console.log("Tipo de gasto: " , tipoDeGastoSelecionado, valor1 , valor2);
+      console.log("Tipo de gasto: " , tipoDeGastoSelecionado, valor1 , valor2 , situacao);
       
 
 
@@ -285,7 +286,12 @@ function TabelaGastosPendentes() {
       <div style={{ margin: '1%' }}></div>
 
     {/* Adicione o rótulo para o campo de valor */}
-
+    <IonInput
+      placeholder="Digite a situação"
+      onIonChange={(e) => setSituacao(e.detail.value!)}
+      className="custom-input"
+    />
+    <div style={{ margin: '1%' }}></div>
     
     {/* Condicionalmente renderize um único campo de entrada com base no tipo de gasto */}
     {tipoDeGastoSelecionado === "Material" ?(
@@ -295,7 +301,6 @@ function TabelaGastosPendentes() {
           className="custom-select"
           placeholder="Preço por m^2/m^3"
           type="number" 
-          value={valor1}
           onIonChange={(e : any) => {
             setValor1(e.detail.value);
           }}
@@ -305,8 +310,7 @@ function TabelaGastosPendentes() {
         <IonInput
           className="custom-select"
           placeholder="quantidade m^2/m^3"
-          type="number" 
-          value = {valor2}
+          type="number"
           onIonChange={(e : any) => {
             setValor2(e.detail.value);
           }} 
@@ -318,8 +322,7 @@ function TabelaGastosPendentes() {
         <IonInput
           className="custom-select"
           placeholder="Digite o valor"
-          type="number" 
-          value={valor1}
+          type="number"
           onIonChange={(e : any) => {
             setValor1(e.detail.value);
             setValor2("-1");
