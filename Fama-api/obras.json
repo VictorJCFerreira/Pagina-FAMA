@@ -37,6 +37,12 @@
           "descricao": "tijolo 5",
           "valor": 30,
           "situacao": "Entregue"
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "the tijolo",
+          "valor": 100,
+          "situacao": "Comprado"
         }
       ],
       "somaGastosEfetuados": 25,
@@ -57,11 +63,6 @@
           "tipoDeGasto": "Material",
           "descricao": "tijolo 4",
           "valor": 30
-        },
-        {
-          "tipoDeGasto": "Material",
-          "descricao": "the tijolo",
-          "valor": 100
         }
       ],
       "somaGastosPendentes": 17,
