@@ -66,10 +66,11 @@ function TabelaGastosEfetuados() {
     setSituação(""); // Limpar o campo de situação ao fechar o modal
   }
   
-  const enviarIndiceParaAPI = (index : number , situacao : any) => {
+  const enviarIndiceParaAPI = (index : any , situacao : any) => {
     const data = {index, situacao}; // Os dados que você deseja enviar para a API
-  
-    axios.post(url, data)
+    const urlData = "http://localhost:9000/obras/api/data";
+
+    axios.post(urlData, data)
       .then((response) => {
         // Aqui, você pode adicionar logs para a resposta bem-sucedida
         console.log('Resposta da API recebida:', response.data);

@@ -8,6 +8,8 @@ const funcoes = require('../obras');
 const port = 9000
 
 app.use(cors())
+app.use(express.json());
+
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
@@ -27,13 +29,13 @@ app.get('/obras/api', function (req, res) {
     })
 });
 
-app.post('/obras/api', (req, res) => {
+app.post('/obras/api/data', (req, res) => {
   try {
-    const {indice, situacao} = req.body;
-    console.log(indice,situacao)
-    funcoes.alterarSituação(indice , situacao);
+    const data = req.body;
+    /* funcoes.alterarSituação(indice , situacao); */
 
-    res.status(200).json({ message: 'Índice e situação recebidos com sucesso!' });
+    res.status(200).json({ message: 'Índice e situação recebidos com sucesso!' , data});
+    funcoes.alterarSituação(data.index , data.situacao)
   } catch (error) {
     console.error('Erro ao processar a solicitação POST:', error);
     res.status(500).json({ error: 'Erro ao processar a solicitação POST' });

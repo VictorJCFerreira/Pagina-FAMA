@@ -6,8 +6,6 @@ const url = "http://localhost:9000/obras/api"
 
 //por enquanto só está analisando[0]
 
-const caminhoArquivo = './obras.json';
-
 //calcula dias decorridos e dias atrasados
 function verificaDias() 
 {
