@@ -3,13 +3,15 @@ const { json } = require('stream/consumers');
 
 
 const url = "http://localhost:9000/obras/api"
+const caminhoJson = '../obras.json'
+
 
 //por enquanto só está analisando[0]
 
 //calcula dias decorridos e dias atrasados
 function verificaDias() 
 {
-  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+  fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
     
     //dias decorridos
     if (err) {
@@ -31,7 +33,7 @@ function verificaDias()
     const diferencaDias = differenceInDays(dataAtual, dataDeInicioForm);
 
     jsonObject[0].datas.diasDecorridos = diferencaDias;
-    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
     //se atraso -> dias de atraso
     const dataDeEntrega = jsonObject[0].datas.dataDeEntrega;
@@ -44,7 +46,7 @@ function verificaDias()
     const diferencaDiasAtraso = differenceInDays(dataAtual, dataDeEntregaForm);
     if (diferencaDiasAtraso > 0) {
       jsonObject[0].datas.diasAtrasados = diferencaDiasAtraso;
-      fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+      fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
     }
 
   });
@@ -56,7 +58,7 @@ function verificaDias()
 
 //calcula: crédito , situação de lucro , projeção de gastos
 function orçamentoCalculo(){
-fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
   if (err) {
     console.error('Erro:', err);
     return;
@@ -72,7 +74,7 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
   }
 
   jsonObject[0].orçamento.somaGastosEfetuados = somaGastosEfetuados;
-  fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   var somaGastosPendentes = 0;
   for(gasto of gastosPendentes){
@@ -80,22 +82,22 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
   }
 
   jsonObject[0].orçamento.somaGastosPendentes = somaGastosPendentes;
-  fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   valorPagoObra = jsonObject[0].orçamento.valorPagoObra;
   credito = valorPagoObra - somaGastosEfetuados;
 
 
   jsonObject[0].orçamento.credito = credito;
-  fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   const projecaoDeGastos = somaGastosEfetuados + somaGastosPendentes
   jsonObject[0].orçamento.projecaoDeGastos = projecaoDeGastos
-  fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   const projecaoDeCredito = credito - somaGastosPendentes
   jsonObject[0].orçamento.projecaoDeCredito = projecaoDeCredito
-  fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+  fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
 
 });
@@ -103,7 +105,7 @@ fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
 
 
 function efetuarGasto(numero , situacao) {
-  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+  fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);
       return;
@@ -121,7 +123,7 @@ function efetuarGasto(numero , situacao) {
     jsonObject[0].orçamento.gastosPendentes.splice(numero, 1)
     
 
-    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
   
 
   })
@@ -129,7 +131,7 @@ function efetuarGasto(numero , situacao) {
 
 
 function alterarSituação(index, situacaonova){
-  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+  fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);
       return;
@@ -141,7 +143,7 @@ function alterarSituação(index, situacaonova){
     //muda situação:
     jsonObject[0].orçamento.gastosEfetuados[index].situacao = situacaonova
 
-    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   });
 }
@@ -154,7 +156,7 @@ function casoGastoMaterial(precoMetroQuadradoOuCubico, quantidade){
 }
 
 function novoGastoPendente(tipoDeGasto, descricao , valor){
-  fs.readFile(caminhoArquivo, 'utf8', (err, jsonContent) => {
+  fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);
       return;
@@ -172,7 +174,7 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
     jsonObject[0].orçamento.gastosPendentes.push(novoGastoPendente)
     
 
-    fs.writeFileSync(caminhoArquivo, JSON.stringify(jsonObject, null, 2), 'utf-8');
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
 
   });
 } 
