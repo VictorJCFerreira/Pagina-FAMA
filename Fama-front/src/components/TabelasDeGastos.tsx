@@ -165,10 +165,10 @@ function TabelaGastosPendentes() {
   ]);
 
   
-  const [valor1, setValor1] = useState(""); // Estado para o primeiro valor
-  const [valor2, setValor2] = useState(""); // Estado para o segundo valor
+  const [valor1, setValor1] = useState<number | null>(null); // Estado para o primeiro valor
+  const [valor2, setValor2] = useState<number | null>(null); // Estado para o segundo valor
   const [situacao, setSituacao] = useState("") // estado para situaçao
-  const [valorResultado, setValorResultado] = useState(""); // Estado para o segundo valor
+  const [valorResultado, setValorResultado] = useState<number | null>(null); // Estado para o segundo valor
   DadoObra()
   .then((obrasData) => {
     setGastosPendentes(obrasData[0].orçamento.gastosPendentes);
@@ -178,10 +178,10 @@ function TabelaGastosPendentes() {
   });
 
   const tiposDeGasto =  
-  ["Material" , "Mão de obra" , "Equipamentos e Ferramentas" , "Licenças e Permissões" ,
-   "Serviços Profissionais" , "Transporte e Logística" , "Água, Eletricidade e Gás" ,
+  [ "Material" , "Mão de obra" , "Equipamentos e Ferramentas" , "Licenças e Permissões" ,
+    "Serviços Profissionais" , "Transporte e Logística" , "Água, Eletricidade e Gás" ,
     "Gerenciamento de Resíduos" , "Comunicação e Tecnologia" , "Segurança e Saúde Ocupacional" ,
-     "Contingências e Reservas" , "Outros Custos Variáveis"
+    "Contingências e Reservas" , "Outros Custos Variáveis"
   ]
     
   // Aqui o Json  ImportantList será usado
@@ -193,7 +193,7 @@ function TabelaGastosPendentes() {
 
   // Função para verificar se todas as entradas estão preenchidas
   const verificarEntradasPreenchidas = () => {
-    return tipoDeGastoSelecionado !== "" && valor1 !== "" && valor2 !== "" && situacao !== "";
+    return tipoDeGastoSelecionado !== "" && valor1 !== null && valor2 !== null && situacao !== "";
   }
 
   
@@ -201,8 +201,8 @@ function TabelaGastosPendentes() {
   const handleFecharModalAdicionarPendente = () => {
     setMostrarModalAdicionarPendente(false);
     setTipoDeGastoSelecionado("");
-    setValor1("")
-    setValor2("") 
+    setValor1(null)
+    setValor2(null) 
   }
   
   const handleConfirmarNovoTipo = () => {
@@ -223,15 +223,20 @@ function TabelaGastosPendentes() {
 
       // aqui valorTotal vai receber um resultado dependendo da informação escolhida
       if(materialSelecionado){
-        //fazer o que precisa caso seja Material
+        if (typeof valor1 === 'string' && typeof valor2 === 'string') {
+          const resultadoMultiplicacao = parseInt(valor1) * parseInt(valor2);
+          
+      }
       } else {
         //fazer o que precisa caso não seja Material (valor2 está anexado como -1 , apenas trabalhe com valor1 como valorTotal)
       }
 
+      console.log("valor: " , valorResultado)
+
       // Restaure os campos para seus valores iniciais
       setTipoDeGastoSelecionado("");
-      setValor1("");
-      setValor2("");
+      setValor1(null);
+      setValor2(null);
 
       
     } else {
@@ -327,7 +332,7 @@ function TabelaGastosPendentes() {
           type="number"
           onIonChange={(e : any) => {
             setValor1(e.detail.value);
-            setValor2("-1");
+            setValor2(-1);
           }}
         />
       </div>
