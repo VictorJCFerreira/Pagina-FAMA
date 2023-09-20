@@ -177,10 +177,12 @@ function TabelaGastosPendentes() {
     console.error('Erro ao obter dados das obras:', error);
   });
 
-  const tiposDeGasto =  [
-    "Pedreiro",
-    "Material",
-  ];
+  const tiposDeGasto =  
+  ["Material" , "Mão de obra" , "Equipamentos e Ferramentas" , "Licenças e Permissões" ,
+   "Serviços Profissionais" , "Transporte e Logística" , "Água, Eletricidade e Gás" ,
+    "Gerenciamento de Resíduos" , "Comunicação e Tecnologia" , "Segurança e Saúde Ocupacional" ,
+     "Contingências e Reservas" , "Outros Custos Variáveis"
+  ]
     
   // Aqui o Json  ImportantList será usado
   const [tipoDeGastoSelecionado, setTipoDeGastoSelecionado] = useState(""); // Estado para armazenar a situação digitada
