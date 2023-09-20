@@ -197,6 +197,8 @@ function novaobra(nomeObra, responsavel , local, dataInicioDia,dataInicioMes,dat
      "responsavel": responsavel,
      "local": local,
      "datas": {dataDeInicio,dataDeEntrega},
+     "diasDecorridos":0,
+     "diasAtrasados": 0,
      "orçamento":{"valorPagoObra": valorPagoObra,
      "gastosEfetuados":[],
      "somaGastosEfetuados": 0,
@@ -216,7 +218,6 @@ function novaobra(nomeObra, responsavel , local, dataInicioDia,dataInicioMes,dat
 } 
 
 
-novaobra("Nova luz","fulano","Recife",20,10,2023,20,11,2023,10000 )
 
 
 

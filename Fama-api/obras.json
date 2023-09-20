@@ -73,6 +73,8 @@
         "ano": 2023
       }
     },
+    "diasDecorridos": 0,
+    "diasAtrasados": 0,
     "orçamento": {
       "valorPagoObra": 10000,
       "gastosEfetuados": [],
