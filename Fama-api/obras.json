@@ -10,12 +10,12 @@
         "ano": 2023
       },
       "dataDeEntrega": {
-        "dia": 24,
+        "dia": 23,
         "mes": 8,
         "ano": 2023
       },
-      "diasDecorridos": 32,
-      "diasAtrasados": 4
+      "diasDecorridos": 55,
+      "diasAtrasados": 28
     },
     "orçamento": {
       "valorPagoObra": 100,

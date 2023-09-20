@@ -1,17 +1,18 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Obra.css';
-import List from '../components/List';
+import List , {atualizarDatas , Titulo} from '../components/List';
 import { IonCol, IonGrid, IonRow } from '@ionic/react';
 import TabelaGastosEfetuados , {TabelaGastosPendentes} from '../components/TabelasDeGastos';
 
 
 const Obra: React.FC = () => {
-    return (
+    atualizarDatas();
+  return (
       <IonPage>
         <IonHeader>
           <IonToolbar>
-            <IonTitle>Nome da Obra: Shopping Funico</IonTitle>
+            <Titulo/>
           </IonToolbar>
         </IonHeader>
         <IonContent fullscreen>

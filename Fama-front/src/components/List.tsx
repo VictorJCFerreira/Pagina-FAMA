@@ -1,6 +1,6 @@
 import './List.css';
 import React, { useState } from 'react';
-import { IonCol, IonItem, IonLabel, IonList, IonRow } from '@ionic/react';
+import { IonCol, IonItem, IonLabel, IonList, IonRow, IonTitle } from '@ionic/react';
 
 import axios from "axios";
 
@@ -15,6 +15,37 @@ async function DadoObra() {
     throw error;
   }
 }
+
+
+function atualizarDatas(){
+  const urlInfo = "http://localhost:9000/obras/api/atualizarDatas"
+  //data de dias
+  axios.post(urlInfo)
+    .then((response) => {
+      console.log('Resposta da API recebida:', response);
+    })  
+    .catch((error) => {
+        // Trate erros da API aqui
+        console.error('Erro ao enviar a call para atualizar data', error);
+      });
+}
+export {atualizarDatas}
+
+
+function Titulo() {
+  const[nomeObra, setNomeObra] = useState('')
+  DadoObra()
+    .then((obrasData) => {
+      setNomeObra(obrasData[0].nomeObra)
+    })
+    .catch((error) => {
+      console.error('Erro ao obter dados das obras:',error);
+    });
+  return (
+    <IonTitle>Nome da Obra: {nomeObra}</IonTitle>
+  )
+}
+export {Titulo};
 
 
 
@@ -40,22 +71,22 @@ function List() {
   const [projecaoDeCredito , setProjecaoDeCredito] = useState(0);
 
   DadoObra()
-      .then((obrasData) => {
-        setResponsavel(obrasData[0].responsavel);
-        setDataDeInicio(obrasData[0].datas.dataDeInicio);
-        setDataDeEntrega(obrasData[0].datas.dataDeEntrega);
-        setDiasDecorridos(obrasData[0].datas.diasDecorridos);
-        setDiasAtrasados(obrasData[0].datas.diasAtrasados);
-        setValorPagoObra(obrasData[0].orçamento.valorPagoObra);
-        setSomaGastosEfetuados(obrasData[0].orçamento.somaGastosEfetuados);
-        setSomaGastosPendentes(obrasData[0].orçamento.somaGastosPendentes);
-        setCredito(obrasData[0].orçamento.credito);
-        setProjecaoDeGastos(obrasData[0].orçamento.projecaoDeGastos);
-        setProjecaoDeCredito(obrasData[0].orçamento.projecaoDeCredito)
-      })
-      .catch((error) => {
-        console.error('Erro ao obter dados das obras:',error);
-      });
+    .then((obrasData) => {
+      setResponsavel(obrasData[0].responsavel);
+      setDataDeInicio(obrasData[0].datas.dataDeInicio);
+      setDataDeEntrega(obrasData[0].datas.dataDeEntrega);
+      setDiasDecorridos(obrasData[0].datas.diasDecorridos);
+      setDiasAtrasados(obrasData[0].datas.diasAtrasados);
+      setValorPagoObra(obrasData[0].orçamento.valorPagoObra);
+      setSomaGastosEfetuados(obrasData[0].orçamento.somaGastosEfetuados);
+      setSomaGastosPendentes(obrasData[0].orçamento.somaGastosPendentes);
+      setCredito(obrasData[0].orçamento.credito);
+      setProjecaoDeGastos(obrasData[0].orçamento.projecaoDeGastos);
+      setProjecaoDeCredito(obrasData[0].orçamento.projecaoDeCredito)
+    })
+    .catch((error) => {
+      console.error('Erro ao obter dados das obras:',error);
+    });
   return (
     <IonList>
       <IonItem>

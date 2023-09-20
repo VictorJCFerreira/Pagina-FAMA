@@ -238,6 +238,7 @@ function TabelaGastosPendentes() {
             });
     
       };
+      
       // aqui valorTotal vai receber um resultado dependendo da informação escolhida
       if(materialSelecionado){
         if (typeof valor1 === 'string' && typeof valor2 === 'string') {
