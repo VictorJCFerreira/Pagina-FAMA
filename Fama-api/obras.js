@@ -109,7 +109,7 @@ function orçamentoCalculo(){
   }
 
 
-function efetuarGasto(numero , situacao) {
+function efetuarGasto(numero , situacao ,callback) {
   if (!fs.existsSync(caminhoJson)) {
     console.error('O arquivo "obras.json" não existe.');
     return;
@@ -134,7 +134,7 @@ function efetuarGasto(numero , situacao) {
     
 
     fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
-  
+    callback();
 
   })
 }

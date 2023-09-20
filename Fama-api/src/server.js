@@ -56,7 +56,10 @@ app.post('/obras/api/efetuarGasto', (req, res) => {
   try {
     const data = req.body;
     res.status(200).json({ message: 'Índice e situação recebidos com sucesso!' , data});
-    funcoes.efetuarGasto(data.index , data.situacao)
+    funcoes.efetuarGasto(data.index , data.situacao,() => {
+      funcoes.orçamentoCalculo(); // Chama a função após a conclusão
+    }) 
+    
   } catch (error) {
     console.error('Erro ao processar a solicitação POST:', error);
     res.status(500).json({ error: 'Erro ao processar a solicitação POST' });
