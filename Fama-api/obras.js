@@ -1,7 +1,6 @@
 const fs = require('fs');
 const { json } = require('stream/consumers');
 
-
 const url = "http://localhost:9000/obras/api"
 const caminhoJson = '../obras.json'
 
@@ -159,14 +158,7 @@ function alterarSituação(index, situacaonova){
   });
 }
 
-
-//caso o tipoDeGasto seja Material a api vai ter q pegar o precoMetroQuadradoOucubico e quantidade 
-//resgatar o valor no qual a função faz a conta , e jogar esse valor na função de adicionar gasto Pendente
-function casoGastoMaterial(precoMetroQuadradoOuCubico, quantidade){
-  return valor = precoMetroQuadradoOuCubico * quantidade;
-}
-
-function novoGastoPendente(tipoDeGasto, descricao , valor){
+function novoGastoPendente(tipoDeGasto, descricao , valor, callback){
   fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);
@@ -187,6 +179,8 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
     
 
     fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
+
+    callback(); // Chama o callback para indicar a conclusão
 
   });
 } 
