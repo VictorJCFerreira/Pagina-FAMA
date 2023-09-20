@@ -89,7 +89,7 @@ function orçamentoCalculo(){
     jsonObject[0].orçamento.somaGastosPendentes = somaGastosPendentes.toFixed(2);
     fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
   
-    /* valorPagoObra = parseFloat(jsonObject[0].orçamento.valorPagoObra);
+    valorPagoObra = parseFloat(jsonObject[0].orçamento.valorPagoObra);
     credito = valorPagoObra - somaGastosEfetuados;
   
   
@@ -102,7 +102,7 @@ function orçamentoCalculo(){
   
     const projecaoDeCredito = credito - somaGastosPendentes
     jsonObject[0].orçamento.projecaoDeCredito = projecaoDeCredito.toFixed(2)
-    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8'); */
+    fs.writeFileSync(caminhoJson, JSON.stringify(jsonObject, null, 2), 'utf-8');
   
   
   });
