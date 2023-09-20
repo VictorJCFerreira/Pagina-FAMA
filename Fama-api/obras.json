@@ -40,8 +40,14 @@
         },
         {
           "tipoDeGasto": "Material",
-          "descricao": "the tijolo",
-          "valor": 100,
+          "descricao": "Ferro fundido",
+          "valor": 130,
+          "situacao": "Entregue"
+        },
+        {
+          "tipoDeGasto": "Equipamentos e Ferramentas",
+          "descricao": "Broca",
+          "valor": "443.00",
           "situacao": "Comprado"
         }
       ],
@@ -63,6 +69,11 @@
           "tipoDeGasto": "Material",
           "descricao": "tijolo 4",
           "valor": 30
+        },
+        {
+          "tipoDeGasto": "Licenças e Permissões",
+          "descricao": "Licença teste",
+          "valor": "244.70"
         }
       ],
       "somaGastosPendentes": 17,

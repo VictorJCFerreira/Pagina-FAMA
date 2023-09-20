@@ -238,12 +238,12 @@ function TabelaGastosPendentes() {
       // aqui valorTotal vai receber um resultado dependendo da informação escolhida
       if(materialSelecionado){
         if (typeof valor1 === 'string' && typeof valor2 === 'string') {
-          const resultadoMultiplicacao = parseInt(valor1) * parseInt(valor2);
+          const resultadoMultiplicacao = parseFloat(valor1) * parseFloat(valor2);
           enviarValores(tipoDeGastoSelecionado,descricao, resultadoMultiplicacao)
           
       }
       } else {
-        //fazer o que precisa caso não seja Material (valor2 está anexado como -1 , apenas trabalhe com valor1 como valorTotal)
+        enviarValores(tipoDeGastoSelecionado , descricao , valor1);
       }
 
       // Restaure os campos para seus valores iniciais

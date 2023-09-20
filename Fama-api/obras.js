@@ -169,11 +169,12 @@ function novoGastoPendente(tipoDeGasto, descricao , valor){
     
     const jsonObject = JSON.parse(jsonContent);
 
+    const valorArredondado = parseFloat(valor).toFixed(2);
 
     const novoGastoPendente = {
       tipoDeGasto: tipoDeGasto,
       descricao: descricao,
-      valor: valor
+      valor: valorArredondado
     };
   
     jsonObject[0].orçamento.gastosPendentes.push(novoGastoPendente)
