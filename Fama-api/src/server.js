@@ -56,8 +56,21 @@ app.post('/obras/api/efetuarGasto', (req, res) => {
 })
 
 
+app.post('/obras/api/adicionarPendente', (req, res) => {
+  try {
+    const data = req.body;
+    res.status(200).json({ message: 'Valores recebidos' , data});
+    funcoes.novoGastoPendente(data.tipoDeGasto , data.descricao , data.resultado )
+  } catch (error) {
+    console.error('Erro ao processar a solicitação POST:', error);
+    res.status(500).json({ error: 'Erro ao processar a solicitação POST' });
+  }
+})
+
+
+
 app.listen(port, ()=>{
-    console.log(`http://localhost:${port}/obras/api`)
+    console.log(`http://localhost:${port}/obras/api`);
 }) 
 
 

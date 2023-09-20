@@ -24,7 +24,7 @@
           "tipoDeGasto": "Pedreiro",
           "descricao": "Mestre de obras",
           "valor": 20,
-          "situacao": "Chegando"
+          "situacao": "Entregue"
         },
         {
           "tipoDeGasto": "Material",
@@ -57,6 +57,11 @@
           "tipoDeGasto": "Material",
           "descricao": "tijolo 4",
           "valor": 30
+        },
+        {
+          "tipoDeGasto": "Material",
+          "descricao": "the tijolo",
+          "valor": 100
         }
       ],
       "somaGastosPendentes": 17,

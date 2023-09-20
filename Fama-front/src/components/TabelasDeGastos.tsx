@@ -167,7 +167,7 @@ function TabelaGastosPendentes() {
   
   const [valor1, setValor1] = useState<number | null>(null); // Estado para o primeiro valor
   const [valor2, setValor2] = useState<number | null>(null); // Estado para o segundo valor
-  const [situacao, setSituacao] = useState("") // estado para situaçao
+  const [descricao, setDescricao] = useState("") // estado para situaçao
   const [valorResultado, setValorResultado] = useState<number | null>(null); // Estado para o segundo valor
   DadoObra()
   .then((obrasData) => {
@@ -193,16 +193,17 @@ function TabelaGastosPendentes() {
 
   // Função para verificar se todas as entradas estão preenchidas
   const verificarEntradasPreenchidas = () => {
-    return tipoDeGastoSelecionado !== "" && valor1 !== null && valor2 !== null && situacao !== "";
+    return tipoDeGastoSelecionado !== "" && valor1 !== null && valor2 !== null && descricao !== "";
   }
 
   
 
   const handleFecharModalAdicionarPendente = () => {
     setMostrarModalAdicionarPendente(false);
+    setDescricao("");
     setTipoDeGastoSelecionado("");
-    setValor1(null)
-    setValor2(null) 
+    setValor1(null);
+    setValor2(null);
   }
   
   const handleConfirmarNovoTipo = () => {
@@ -213,30 +214,43 @@ function TabelaGastosPendentes() {
       
       setMostrarModalAdicionarPendente(false);
     
-      console.log("Tipo de gasto: " , tipoDeGastoSelecionado, valor1 , valor2 , situacao);
+      console.log("Tipo de gasto: " , tipoDeGastoSelecionado, valor1 , valor2 , descricao);
       
 
 
       // verifica se o tipo é material
       const materialSelecionado = tipoDeGastoSelecionado === "Material";
 
-
+      const enviarValores = (tipoDeGasto : any , descricao :any ,resultado : any ) => {
+        const data = {tipoDeGasto, descricao ,resultado}; // Os dados que você deseja enviar para a API
+        const urlData = "http://localhost:9000/obras/api/adicionarPendente";
+    
+        axios.post(urlData, data)
+          .then((response) => {
+            console.log('Resposta da API recebida:', response.data);
+          })  
+          .catch((error) => {
+              // Trate erros da API aqui
+              console.error('Erro ao enviar índice para a API:', error);
+            });
+    
+      };
       // aqui valorTotal vai receber um resultado dependendo da informação escolhida
       if(materialSelecionado){
         if (typeof valor1 === 'string' && typeof valor2 === 'string') {
           const resultadoMultiplicacao = parseInt(valor1) * parseInt(valor2);
+          enviarValores(tipoDeGastoSelecionado,descricao, resultadoMultiplicacao)
           
       }
       } else {
         //fazer o que precisa caso não seja Material (valor2 está anexado como -1 , apenas trabalhe com valor1 como valorTotal)
       }
 
-      console.log("valor: " , valorResultado)
-
       // Restaure os campos para seus valores iniciais
       setTipoDeGastoSelecionado("");
       setValor1(null);
       setValor2(null);
+      setDescricao("")
 
       
     } else {
@@ -294,8 +308,8 @@ function TabelaGastosPendentes() {
 
     {/* Adicione o rótulo para o campo de valor */}
     <IonInput
-      placeholder="Digite a situação"
-      onIonChange={(e) => setSituacao(e.detail.value!)}
+      placeholder="Digite a descrição"
+      onIonChange={(e) => setDescricao(e.detail.value!)}
       className="custom-input"
     />
     <div style={{ margin: '1%' }}></div>
