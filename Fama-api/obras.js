@@ -105,6 +105,11 @@ fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
 
 
 function efetuarGasto(numero , situacao) {
+  if (!fs.existsSync(caminhoJson)) {
+    console.error('O arquivo "obras.json" não existe.');
+    return;
+  }
+  
   fs.readFile(caminhoJson, 'utf8', (err, jsonContent) => {
     if (err) {
       console.error('Erro:', err);

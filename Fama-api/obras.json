@@ -44,12 +44,14 @@
         {
           "tipoDeGasto": "Material",
           "descricao": "Tijolo 2",
-          "valor": 5
+          "valor": 5,
+          "situacao": "Entregue"
         },
         {
           "tipoDeGasto": "Material",
           "descricao": "Tijolo 3",
-          "valor": 12
+          "valor": 12,
+          "situacao": "Baduga"
         },
         {
           "tipoDeGasto": "Material",

@@ -66,15 +66,13 @@ function TabelaGastosEfetuados() {
     setSituação(""); // Limpar o campo de situação ao fechar o modal
   }
   
-  const enviarIndiceParaAPI = (index : any , situacao : any) => {
+  const enviarIndiceESituacaoParaAPI = (index : any , situacao : any) => {
     const data = {index, situacao}; // Os dados que você deseja enviar para a API
-    const urlData = "http://localhost:9000/obras/api/data";
+    const urlData = "http://localhost:9000/obras/api/alterarSituacao";
 
     axios.post(urlData, data)
       .then((response) => {
-        // Aqui, você pode adicionar logs para a resposta bem-sucedida
         console.log('Resposta da API recebida:', response.data);
-        // Também pode adicionar qualquer lógica adicional com base na resposta
       })  
       .catch((error) => {
           // Trate erros da API aqui
@@ -91,7 +89,7 @@ function TabelaGastosEfetuados() {
       }
       else{
         console.log("Situação digitada para o índice:", indiceClicado, situacao);
-        enviarIndiceParaAPI(indiceClicado, situacao);
+        enviarIndiceESituacaoParaAPI(indiceClicado, situacao);
         setMostrarModalEditarSituacao(false); // Feche o modal após confirmar a situação
         setSituação("");
         setIndiceClicado(null); // Limpe o índice clicado
@@ -358,7 +356,7 @@ function TabelaGastosPendentesComBotao() {
     });
 
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [situação, setSituação] = useState(""); // Estado para armazenar a situação digitada
+  const [situacao, setSituação] = useState(""); // Estado para armazenar a situação digitada
   const [indiceClicado, setIndiceClicado] = useState<number | null>(null);
   
   const handleMostrarModal = (index : number) => {
@@ -371,13 +369,28 @@ function TabelaGastosPendentesComBotao() {
     setSituação(""); // Limpar o campo de situação ao fechar o modal
   }
 
+  const enviarIndiceESituacaoParaAPI = (index : any , situacao : any) => {
+    const data = {index, situacao}; // Os dados que você deseja enviar para a API
+    const urlData = "http://localhost:9000/obras/api/efetuarGasto";
 
+    axios.post(urlData, data)
+      .then((response) => {
+        console.log('Resposta da API recebida:', response.data);
+      })  
+      .catch((error) => {
+          // Trate erros da API aqui
+          console.error('Erro ao enviar índice para a API:', error);
+        });
+
+  };
   const handleConfirmarSituação = () => {
     if (indiceClicado !== null) {
-      // Lógica para processar a situação aqui usando o índice
       // Usar função de efetuar pagamento que está no js
-      console.log("Situação digitada para o índice:", indiceClicado, situação);
-    
+      console.log("Situação digitada para o índice:", indiceClicado, situacao);
+      enviarIndiceESituacaoParaAPI(indiceClicado,situacao)
+      
+
+
       // Lógica para processar a situação
       setMostrarModal(false); // Feche o modal após confirmar a situação
       setSituação("");
@@ -413,7 +426,6 @@ function TabelaGastosPendentesComBotao() {
         <div className="modal-content">
           <IonInput
             placeholder="Digite a situação"
-            value={situação}
             onIonChange={(e) => setSituação(e.detail.value!)}
             className="custom-input"
           />
