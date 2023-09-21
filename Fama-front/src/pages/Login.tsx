@@ -42,7 +42,7 @@ const Home: React.FC = () => {
 
       if (user) {
         const userId = user.uid;
-        history.push(`/dashboard/user/${userId}`); 
+        history.push(`obra`); 
       }
       }
     } catch (error) {
