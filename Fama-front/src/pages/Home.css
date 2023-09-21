@@ -1,0 +1,18 @@
+/* Set variables for all modes */
+:root {
+  --ion-color-tuna: #353843;
+  --ion-color-mandy: #eb626e;
+  --ion-color-step-3: #21242d;
+  --ion-color-step-4: #f8ad1c;
+  --ion-color-merino: #f0e6d7;
+}
+
+ion-thumbnail {
+    --size: 100px;
+    --border-radius: 14px;
+
+  }
+ion-button{
+    --background: #f8ad1c;
+    --color: #ffffff;
+}
