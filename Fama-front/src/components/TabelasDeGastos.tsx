@@ -66,7 +66,7 @@ function TabelaGastosEfetuados() {
 
  useEffect(() => {
     if (userId === '9gIk4XzfwAYAPSePmCUYkgmRQZh1') {
-        setPermissaoAdmin(true);
+      setPermissaoAdmin(true);
     }
     else{
       setPermissaoAdmin(false)
@@ -82,9 +82,7 @@ function TabelaGastosEfetuados() {
   
   const [situacao, setSituação] = useState(""); // Estado para armazenar a situação digitada
 
-  const [gastosEfetuados, setGastosEfetuados] = useState([
-    { tipoDeGasto: "", descricao: "", valor: 0, situacao: "" },
-  ])
+  const [gastosEfetuados, setGastosEfetuados] = useState([])
     DadoObra()
       .then((obrasData) => {
         setGastosEfetuados(obrasData[0].orçamento.gastosEfetuados);
@@ -156,7 +154,7 @@ function TabelaGastosEfetuados() {
         <IonCol>Valor</IonCol>
         <IonCol>Situação</IonCol>
       </IonRow>
-      {gastosEfetuados.map((item, index) => (
+      {gastosEfetuados.map((item : any, index) => (
         <IonRow key={index}>
           <IonCol>{item.tipoDeGasto}</IonCol>
           <IonCol>{item.descricao}</IonCol>
@@ -209,9 +207,7 @@ function TabelaGastosPendentes() {
   
   const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
   
-  const [TabelaGastosPendentes, setGastosPendentes] = useState([
-    { tipoDeGasto: "", descricao: "", valor: 0 },
-  ]);
+  const [TabelaGastosPendentes, setGastosPendentes] = useState([]);
 
   
   const [valor1, setValor1] = useState<number | null>(null); // Estado para o primeiro valor
@@ -323,7 +319,7 @@ function TabelaGastosPendentes() {
           <IonCol>Valor</IonCol>
   
         </IonRow>
-        {TabelaGastosPendentes.map((item, index) => (
+        {TabelaGastosPendentes.map((item : any, index) => (
         <IonRow key={index}>
           <IonCol>{item.tipoDeGasto}</IonCol>
           <IonCol>{item.descricao}</IonCol>
@@ -419,9 +415,7 @@ export { TabelaGastosPendentes };
 
 function TabelaGastosPendentesComBotao() {
   //substituir essas variaveis pelas que estão no json
-  const [TabelaGastosPendentes, setTabelaGastosPendentes] = useState([
-    { tipoDeGasto: "", descricao: "", valor: 0 }, 
-  ]);
+  const [TabelaGastosPendentes, setTabelaGastosPendentes] = useState([]);
   
   DadoObra()
     .then((obrasData) => {
@@ -487,7 +481,7 @@ function TabelaGastosPendentesComBotao() {
           <IonCol>Valor</IonCol>
           <IonCol>Adicionar</IonCol>
         </IonRow>
-        {TabelaGastosPendentes.map((item, index) => (
+        {TabelaGastosPendentes.map((item : any, index) => (
         <IonRow key={index}>
           <IonCol>{item.tipoDeGasto}</IonCol>
           <IonCol>{item.descricao}</IonCol>
