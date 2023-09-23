@@ -1,0 +1,31 @@
+[
+  {
+    "nomeObra": "Shopping Funico",
+    "responsavel": "João Teste",
+    "local": "Piedade, Rua Algusta de Freitas ,262",
+    "datas": {
+      "dataDeInicio": {
+        "dia": 27,
+        "mes": 7,
+        "ano": 2023
+      },
+      "dataDeEntrega": {
+        "dia": 23,
+        "mes": 8,
+        "ano": 2023
+      },
+      "diasDecorridos": 56,
+      "diasAtrasados": 29
+    },
+    "orçamento": {
+      "valorPagoObra": 1000,
+      "gastosEfetuados": [],
+      "somaGastosEfetuados": 0,
+      "gastosPendentes": [],
+      "somaGastosPendentes": 0,
+      "credito": 0,
+      "projecaoDeGastos": 0,
+      "projecaoDeCredito": 0
+    }
+  }
+]
