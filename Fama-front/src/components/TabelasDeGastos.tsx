@@ -15,7 +15,9 @@ import axios from "axios";
 import { getAuth } from 'firebase/auth';
 
 const url = "http://localhost:9000/obras/api"
+import mitt from 'mitt';
 
+const emitter = mitt();
 
 async function DadoObra() {
   try {
@@ -227,7 +229,11 @@ function TabelaGastosPendentes() {
   const [valor1, setValor1] = useState<number | null>(null); // Estado para o primeiro valor
   const [valor2, setValor2] = useState<number | null>(null); // Estado para o segundo valor
   const [descricao, setDescricao] = useState("") // estado para situaçao
-  
+
+  emitter.on('acaoNecessaria', () => {
+    setRecharge(true)
+    console.log('Ação necessária foi acionada.');
+  });
   
   useEffect(() => {
     DadoObra()
@@ -497,6 +503,7 @@ function TabelaGastosPendentesComBotao() {
       setIndiceClicado(null); // Limpe o índice clicado
     }
     setRecharge(true)
+    emitter.emit('acaoNecessaria')
   } 
 
 
