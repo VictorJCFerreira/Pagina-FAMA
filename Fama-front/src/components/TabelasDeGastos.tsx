@@ -12,6 +12,7 @@ IonSelect,
 IonSelectOption} from '@ionic/react';
 import './TabelaDeGastos.css';
 import axios from "axios";
+import { getAuth } from 'firebase/auth';
 
 const url = "http://localhost:9000/obras/api"
 
@@ -26,7 +27,52 @@ async function DadoObra() {
 }
 
 
+
+
+
 function TabelaGastosEfetuados() {
+
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    if (auth.currentUser) {
+      // There is an authenticated user
+      const user = auth.currentUser;
+      const userId = user.uid; // Get the user's UID
+      console.log('User is authenticated. User ID:', userId);
+    } else {
+      // No user is authenticated
+      console.log('No user is authenticated.');
+    }
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const uid = user.uid; // Get the user's ID
+
+        if (uid) {
+          setUserId(uid); // Set the user's ID
+        }
+      } else {
+        setUserId(null); // Set user ID to null if user is not authenticated
+      }
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const [permissaoAdmin, setPermissaoAdmin] = useState(false);
+
+ useEffect(() => {
+    if (userId === '9gIk4XzfwAYAPSePmCUYkgmRQZh1') {
+        setPermissaoAdmin(true);
+    }
+    else{
+      setPermissaoAdmin(false)
+    }
+  }, [userId]); // Certifique-se de adicionar userId como dependência
+
 
   const [mostrarModal, setMostrarModal] = useState(false);
   
@@ -115,7 +161,7 @@ function TabelaGastosEfetuados() {
           <IonCol>{item.tipoDeGasto}</IonCol>
           <IonCol>{item.descricao}</IonCol>
           <IonCol>{item.valor}</IonCol>
-          <IonCol>{item.situacao} <IonButton onClick={() => handleAbrirModalEditarSituacao(index)} >Editar</IonButton></IonCol>
+          <IonCol>{item.situacao} <IonButton onClick={() => handleAbrirModalEditarSituacao(index)} disabled = {permissaoAdmin === false} >Editar</IonButton></IonCol>
         </IonRow>
         
       ))}
@@ -133,7 +179,7 @@ function TabelaGastosEfetuados() {
 
 
       <IonRow>
-      <IonCol><IonButton size= "small" onClick={abrirModal}>+</IonButton></IonCol>
+      <IonCol><IonButton size= "small" onClick={abrirModal} disabled = {permissaoAdmin === false}>+</IonButton></IonCol>
       </IonRow>
       <IonModal isOpen={mostrarModal} onDidDismiss={() => setMostrarModal(false)}>
         <div>Efetuar gasto</div>
