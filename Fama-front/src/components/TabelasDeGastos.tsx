@@ -83,13 +83,22 @@ function TabelaGastosEfetuados() {
   const [situacao, setSituação] = useState(""); // Estado para armazenar a situação digitada
 
   const [gastosEfetuados, setGastosEfetuados] = useState([])
+  
+  const [recharge , setRecharge] = useState(true)
+
+
+  useEffect(() => {
     DadoObra()
-      .then((obrasData) => {
-        setGastosEfetuados(obrasData[0].orçamento.gastosEfetuados);
-      })
-      .catch((error) => {
-        console.error('Erro ao obter dados das obras:', error);
-      });
+    .then((obrasData) => {
+      setGastosEfetuados(obrasData[0].orçamento.gastosEfetuados);
+    })
+    .catch((error) => {
+      console.error('Erro ao obter dados das obras:', error);
+    });
+    setRecharge(false)
+  } , [recharge])
+
+  
 
 
   function abrirModal() {
@@ -98,6 +107,7 @@ function TabelaGastosEfetuados() {
 
   function fecharModal() {
     setMostrarModal(false);
+    setRecharge(true)
   }
 
   const handleAbrirModalEditarSituacao = (index : number) => {
@@ -108,6 +118,7 @@ function TabelaGastosEfetuados() {
   const handleFecharModalEditarSituação = () => {
     setMostrarModalEditarSituacao(false);
     setSituação(""); // Limpar o campo de situação ao fechar o modal
+    
   }
   
   const enviarIndiceESituacaoParaAPI = (index : any , situacao : any) => {
@@ -139,6 +150,7 @@ function TabelaGastosEfetuados() {
         setIndiceClicado(null); // Limpe o índice clicado
       }
     }
+    setRecharge(true)
   } 
 
 
@@ -415,15 +427,24 @@ export { TabelaGastosPendentes };
 
 function TabelaGastosPendentesComBotao() {
   //substituir essas variaveis pelas que estão no json
+  const [recharge , setRecharge] = useState(true)
   const [TabelaGastosPendentes, setTabelaGastosPendentes] = useState([]);
   
-  DadoObra()
+
+  
+  useEffect(() => {
+    DadoObra()
     .then((obrasData) => {
       setTabelaGastosPendentes(obrasData[0].orçamento.gastosPendentes);
     })
     .catch((error) => {
       console.error('Erro ao obter dados das obras:',error);
     });
+
+    setRecharge(false)
+  } , [recharge])
+  
+  
 
   const [mostrarModal, setMostrarModal] = useState(false);
   const [situacao, setSituação] = useState(""); // Estado para armazenar a situação digitada
@@ -466,6 +487,7 @@ function TabelaGastosPendentesComBotao() {
       setSituação("");
       setIndiceClicado(null); // Limpe o índice clicado
     }
+    setRecharge(true)
   } 
 
 
