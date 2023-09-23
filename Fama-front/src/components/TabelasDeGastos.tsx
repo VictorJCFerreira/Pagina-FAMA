@@ -217,6 +217,8 @@ export default TabelaGastosEfetuados;
 
 function TabelaGastosPendentes() {
   
+  const [recharge , setRecharge] = useState(true)
+
   const [mostrarModalAdicionarPendente, setMostrarModalAdicionarPendente] = useState(false);
   
   const [TabelaGastosPendentes, setGastosPendentes] = useState([]);
@@ -225,14 +227,20 @@ function TabelaGastosPendentes() {
   const [valor1, setValor1] = useState<number | null>(null); // Estado para o primeiro valor
   const [valor2, setValor2] = useState<number | null>(null); // Estado para o segundo valor
   const [descricao, setDescricao] = useState("") // estado para situaçao
-  const [valorResultado, setValorResultado] = useState<number | null>(null); // Estado para o segundo valor
-  DadoObra()
-  .then((obrasData) => {
-    setGastosPendentes(obrasData[0].orçamento.gastosPendentes);
-  })
-  .catch((error) => {
-    console.error('Erro ao obter dados das obras:', error);
-  });
+  
+  
+  useEffect(() => {
+    DadoObra()
+    .then((obrasData) => {
+      setGastosPendentes(obrasData[0].orçamento.gastosPendentes);
+    })
+    .catch((error) => {
+      console.error('Erro ao obter dados das obras:', error);
+    });
+    setRecharge(false)
+  } , [recharge])
+  
+  
 
   const tiposDeGasto =  
   [ "Material" , "Mão de obra" , "Equipamentos e Ferramentas" , "Licenças e Permissões" ,
@@ -290,7 +298,8 @@ function TabelaGastosPendentes() {
               // Trate erros da API aqui
               console.error('Erro ao enviar índice para a API:', error);
             });
-    
+            
+      
       };
       
       // aqui valorTotal vai receber um resultado dependendo da informação escolhida
@@ -310,7 +319,7 @@ function TabelaGastosPendentes() {
       setValor2(null);
       setDescricao("")
 
-      
+      setRecharge(true)
     } else {
       // Caso alguma entrada não esteja preenchida, você pode mostrar uma mensagem de erro ou alerta aqui
       console.log("Por favor, preencha todas as entradas.");
